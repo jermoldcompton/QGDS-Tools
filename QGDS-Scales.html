@@ -46,9 +46,9 @@ By: Jermold Compton
   }
   .tab-row .unit-toggle button { all: revert; }
   .tab-row .unit-toggle button {
-    font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 5px 12px;
+    font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 0 12px;
     cursor: pointer; border: none; background: transparent; color: #888780;
-    font-weight: 400; transition: all 0.15s; line-height: 1;
+    font-weight: 400; transition: all 0.15s; line-height: 1; height: 100%;
   }
   .tab-row .unit-toggle button.active { background: #2C2C2A; color: #ffffff; font-weight: 500; }
   .tab-row .unit-toggle button:first-child { border-right: 0.5px solid #B4B2A9; }
@@ -74,6 +74,9 @@ By: Jermold Compton
   .meta {
     margin-top: 28px; padding-top: 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .meta { grid-template-columns: 1fr; }
   }
   .meta-card { background: #F1EFE8; border-radius: 8px; padding: 14px 16px; }
   .meta-card .label {
@@ -162,11 +165,12 @@ By: Jermold Compton
   }
   .unit-toggle {
     display: flex; align-items: center; border: 0.5px solid #B4B2A9; border-radius: 6px; overflow: hidden;
+    height: 32px;
   }
   .unit-toggle button {
-    font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 5px 12px;
+    font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 0 12px;
     cursor: pointer; border: none; background: transparent; color: #888780;
-    font-weight: 400; transition: all 0.15s; line-height: 1;
+    font-weight: 400; transition: all 0.15s; line-height: 1; height: 100%;
   }
   .unit-toggle button.active { background: #2C2C2A; color: #ffffff; font-weight: 500; }
   .unit-toggle button:first-child { border-right: 0.5px solid #B4B2A9; }
@@ -194,6 +198,13 @@ By: Jermold Compton
   .copy-col-btn:hover { background: #F1EFE8; color: #2C2C2A; }
   .copy-col-btn.copied { color: #0F6E56; border-color: #0F6E56; }
 
+  @media (max-width: 600px) {
+    body { padding: 20px; }
+    .col-btn-label { display: none; }
+    .input-field input { width: 100%; min-width: 0; }
+    .scales-grid { grid-template-columns: 1fr; }
+  }
+
   .copy-table-btn {
     margin-top: 8px; font-size: 0.75rem; font-family: inherit; padding: 5px 14px;
     cursor: pointer; border-radius: 6px; border: 0.5px solid #B4B2A9;
@@ -207,9 +218,9 @@ By: Jermold Compton
   }
   .export-row span { font-size: 0.75rem; color: #888780; }
   .export-btn {
-    font-size: 0.75rem; font-family: inherit; padding: 5px 14px; cursor: pointer;
+    font-size: 0.75rem; font-family: inherit; padding: 0 14px; cursor: pointer;
     border-radius: 6px; border: 0.5px solid #B4B2A9; background: transparent;
-    color: #5F5E5A; transition: all 0.15s;
+    color: #5F5E5A; transition: all 0.15s; height: 32px;
   }
   .export-btn:hover { background: #F1EFE8; }
 </style>
@@ -221,7 +232,7 @@ By: Jermold Compton
 
 <h2>Scale relationship</h2>
 
-<div class="tab-row" style="justify-content: space-between; align-items: center; margin-bottom: 32px;">
+<div class="tab-row" style="justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; row-gap: 12px;">
   <div style="display:flex; gap:8px;">
     <button class="active" onclick="showTab('cumulative', this)">Cumulative values</button>
     <button onclick="showTab('increments', this)">Increment growth</button>
@@ -234,10 +245,10 @@ By: Jermold Compton
     <label for="chart-steps-input" style="font-size:0.75rem; color:#888780;">Steps</label>
     <input type="number" id="chart-steps-input" value="48" min="4" max="200" step="1"
       style="width:64px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
-             padding:5px 8px; border:0.5px solid #B4B2A9; border-radius:5px;
-             color:#2C2C2A; background:#ffffff; outline:none;"
+             padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
+             color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
       oninput="document.getElementById('steps-input').value=this.value; refreshAll()">
-    <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding:5px 14px;">Reset to defaults</button>
+    <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding:5px 14px;">Reset</button>
   </div>
 </div>
 
@@ -311,16 +322,28 @@ By: Jermold Compton
 
   <div style="border-top: 0.5px solid #D3D1C7; margin-bottom: 24px;"></div>
 
-  <div class="table-controls">
-    <div class="unit-toggle">
-      <button class="active" onclick="setUnit('px', this)">px</button>
-      <button onclick="setUnit('rem', this)">rem</button>
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:24px; flex-wrap:wrap; row-gap:12px;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <label for="table-height-input" style="font-size:0.75rem; color:#888780;">Table height (px)</label>
+      <input type="number" id="table-height-input" value="400" min="100" max="2000" step="10"
+        style="width:72px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
+               padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
+               color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
+        oninput="updateTableHeight(this.value)">
     </div>
-    <div class="steps-control">
-      <label>Steps</label>
-      <input type="number" id="steps-input" value="48" min="4" max="200" step="1" oninput="document.getElementById('chart-steps-input').value=this.value; refreshAll()">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="unit-toggle">
+        <button class="active" onclick="setUnit('px', this)">px</button>
+        <button onclick="setUnit('rem', this)">rem</button>
+      </div>
+      <label for="steps-input" style="font-size:0.75rem; color:#888780;">Steps</label>
+      <input type="number" id="steps-input" value="48" min="4" max="200" step="1"
+        style="width:64px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
+               padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
+               color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
+        oninput="document.getElementById('chart-steps-input').value=this.value; refreshAll()">
+      <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding: 5px 14px;">Reset</button>
     </div>
-    <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding: 5px 14px;">Reset to defaults</button>
   </div>
 
   <div class="scales-grid">
@@ -361,15 +384,15 @@ By: Jermold Compton
       <div class="copy-col-row">
         <button class="copy-col-btn" onclick="copyColumn('grid', 0, 'n', this)" title="Copy n column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          n
+          <span class="col-btn-label">n</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('grid', 1, document.getElementById('th-val-grid').textContent, this)" title="Copy value column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          value
+          <span class="col-btn-label">value</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('grid', 2, document.getElementById('th-inc-grid').textContent, this)" title="Copy inc column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          inc
+          <span class="col-btn-label">inc</span>
         </button>
       </div>
       <button class="copy-table-btn" onclick="copyTable('grid', 'th-val-grid', 'th-inc-grid', this)">Copy table</button>
@@ -411,15 +434,15 @@ By: Jermold Compton
       <div class="copy-col-row">
         <button class="copy-col-btn" onclick="copyColumn('size', 0, 'n', this)" title="Copy n column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          n
+          <span class="col-btn-label">n</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('size', 1, document.getElementById('th-val-size').textContent, this)" title="Copy value column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          value
+          <span class="col-btn-label">value</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('size', 2, document.getElementById('th-inc-size').textContent, this)" title="Copy inc column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          inc
+          <span class="col-btn-label">inc</span>
         </button>
       </div>
       <button class="copy-table-btn" onclick="copyTable('size', 'th-val-size', 'th-inc-size', this)">Copy table</button>
@@ -461,15 +484,15 @@ By: Jermold Compton
       <div class="copy-col-row">
         <button class="copy-col-btn" onclick="copyColumn('spac', 0, 'n', this)" title="Copy n column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          n
+          <span class="col-btn-label">n</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('spac', 1, document.getElementById('th-val-spac').textContent, this)" title="Copy value column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          value
+          <span class="col-btn-label">value</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('spac', 2, document.getElementById('th-inc-spac').textContent, this)" title="Copy inc column">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
-          inc
+          <span class="col-btn-label">inc</span>
         </button>
       </div>
       <button class="copy-table-btn" onclick="copyTable('spac', 'th-val-spac', 'th-inc-spac', this)">Copy table</button>
@@ -496,6 +519,11 @@ const DEFAULTS = {
 };
 
 let currentUnit = 'px';
+
+function updateTableHeight(val) {
+  const h = Math.max(100, Math.min(2000, parseInt(val) || 400));
+  document.querySelectorAll('.table-scroll').forEach(el => el.style.maxHeight = h + 'px');
+}
 
 function getSteps() {
   return Math.max(4, Math.min(200, parseInt(document.getElementById('steps-input').value) || 48));
@@ -773,6 +801,8 @@ function resetDefaults() {
   document.getElementById('steps-input').value = 48;
   document.getElementById('chart-steps-input').value = 48;
   ['grid','size','spac'].forEach(id => document.getElementById('vis-' + id).checked = true);
+  document.getElementById('table-height-input').value = 400;
+  updateTableHeight(400);
   currentUnit = 'px';
   document.querySelectorAll('.unit-toggle button').forEach(b => {
     b.classList.toggle('active', b.textContent.trim() === 'px');
