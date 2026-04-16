@@ -55,6 +55,12 @@ By: Jermold Compton
 
   .legend { display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #5F5E5A; }
+  .legend-check { cursor: pointer; user-select: none; }
+  .legend-check input[type="checkbox"] {
+    width: 14px; height: 14px; cursor: pointer; accent-color: #2C2C2A;
+    margin: 0; flex-shrink: 0;
+  }
+  .legend-check.dimmed { opacity: 0.35; }
   .legend-swatch { width: 28px; height: 3px; border-radius: 2px; flex-shrink: 0; }
 
   .chart-wrap { position: relative; width: 100%; height: 320px; margin-bottom: 16px; }
@@ -236,9 +242,18 @@ By: Jermold Compton
 </div>
 
 <div class="legend">
-  <span class="legend-item"><span class="legend-swatch" style="background:#E24B4A;"></span>Grid</span>
-  <span class="legend-item"><span class="legend-swatch" style="background:#005EB8;"></span>Size</span>
-  <span class="legend-item"><span class="legend-swatch" style="background:#0F6E56;"></span>Spacing</span>
+  <label class="legend-item legend-check">
+    <input type="checkbox" id="vis-grid" checked onchange="refreshChart()">
+    <span class="legend-swatch" style="background:#E24B4A;"></span>Grid
+  </label>
+  <label class="legend-item legend-check">
+    <input type="checkbox" id="vis-size" checked onchange="refreshChart()">
+    <span class="legend-swatch" style="background:#005EB8;"></span>Size
+  </label>
+  <label class="legend-item legend-check">
+    <input type="checkbox" id="vis-spac" checked onchange="refreshChart()">
+    <span class="legend-swatch" style="background:#0F6E56;"></span>Spacing
+  </label>
 </div>
 
 <div class="chart-wrap">
@@ -564,26 +579,46 @@ function toUnit(arr) {
   return currentUnit === 'rem' ? arr.map(v => v === null ? null : parseFloat((v / REM_BASE).toFixed(3))) : arr;
 }
 
+function getVisibility() {
+  return {
+    grid: document.getElementById('vis-grid').checked,
+    size: document.getElementById('vis-size').checked,
+    spac: document.getElementById('vis-spac').checked
+  };
+}
+
 function buildChart(g, s, p, steps) {
   const chartLabels = Array.from({length: steps + 1}, (_, i) => i);
   const unit = currentUnit;
   const yLabel = currentTab === 'cumulative' ? `value (${unit})` : `increment (${unit})`;
-  const ds = {
+  const vis = getVisibility();
+
+  ['grid','size','spac'].forEach(id => {
+    const label = document.getElementById('vis-' + id).closest('.legend-check');
+    if (label) label.classList.toggle('dimmed', !vis[id]);
+  });
+
+  const allDs = {
     cumulative: [
-      { label: 'Grid',    data: toUnit(g.vals),              borderColor: RED,    borderWidth: 2, pointRadius: 0, tension: 0.3 },
-      { label: 'Size',    data: toUnit(s.vals),              borderColor: PURPLE, borderWidth: 2, pointRadius: 0, tension: 0.3 },
-      { label: 'Spacing', data: toUnit(p.vals),              borderColor: TEAL,   borderWidth: 2, pointRadius: 0, tension: 0.3 },
+      { id: 'grid', label: 'Grid',    data: toUnit(g.vals),            borderColor: RED,    borderWidth: 2, pointRadius: 0, tension: 0.3 },
+      { id: 'size', label: 'Size',    data: toUnit(s.vals),            borderColor: PURPLE, borderWidth: 2, pointRadius: 0, tension: 0.3 },
+      { id: 'spac', label: 'Spacing', data: toUnit(p.vals),            borderColor: TEAL,   borderWidth: 2, pointRadius: 0, tension: 0.3 },
     ],
     increments: [
-      { label: 'Grid',    data: toUnit([null, ...g.incs]),   borderColor: RED,    borderWidth: 2, pointRadius: 0, stepped: true },
-      { label: 'Size',    data: toUnit([null, ...s.incs]),   borderColor: PURPLE, borderWidth: 2, pointRadius: 0, stepped: true },
-      { label: 'Spacing', data: toUnit([null, ...p.incs]),   borderColor: TEAL,   borderWidth: 2, pointRadius: 0, stepped: true },
+      { id: 'grid', label: 'Grid',    data: toUnit([null, ...g.incs]), borderColor: RED,    borderWidth: 2, pointRadius: 0, stepped: true },
+      { id: 'size', label: 'Size',    data: toUnit([null, ...s.incs]), borderColor: PURPLE, borderWidth: 2, pointRadius: 0, stepped: true },
+      { id: 'spac', label: 'Spacing', data: toUnit([null, ...p.incs]), borderColor: TEAL,   borderWidth: 2, pointRadius: 0, stepped: true },
     ]
   };
+
+  const datasets = allDs[currentTab]
+    .filter(d => vis[d.id])
+    .map(({ id, ...rest }) => rest);
+
   if (chart) chart.destroy();
   chart = new Chart(document.getElementById('mainChart'), {
     type: 'line',
-    data: { labels: chartLabels, datasets: ds[currentTab] },
+    data: { labels: chartLabels, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
@@ -737,6 +772,7 @@ function resetDefaults() {
   }
   document.getElementById('steps-input').value = 48;
   document.getElementById('chart-steps-input').value = 48;
+  ['grid','size','spac'].forEach(id => document.getElementById('vis-' + id).checked = true);
   currentUnit = 'px';
   document.querySelectorAll('.unit-toggle button').forEach(b => {
     b.classList.toggle('active', b.textContent.trim() === 'px');
