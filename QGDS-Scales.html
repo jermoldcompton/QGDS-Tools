@@ -596,12 +596,17 @@ function buildChart(g, s, p, steps) {
 
 function copyColumn(scaleId, colIndex, header, btn) {
   const rows = document.querySelectorAll('#tbody-' + scaleId + ' tr');
-  const values = [header.trim()];
+  const headerText = header.trim();
+  const cellValues = [];
   rows.forEach(row => {
     const cells = Array.from(row.querySelectorAll('td'));
-    if (cells[colIndex]) values.push(cells[colIndex].textContent.trim());
+    if (cells[colIndex]) cellValues.push(cells[colIndex].textContent.trim());
   });
-  const text = values.join('\r\n');
+
+  const tsv = [headerText].concat(cellValues).join('\r\n');
+  const htmlRows = cellValues.map(v => '<tr><td>' + v + '</td></tr>').join('');
+  const html = '<table><thead><tr><th>' + headerText + '</th></tr></thead><tbody>' + htmlRows + '</tbody></table>';
+
   const orig = btn.innerHTML;
 
   function showFeedback(success) {
@@ -609,11 +614,19 @@ function copyColumn(scaleId, colIndex, header, btn) {
     setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
   }
 
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => showFeedback(true)).catch(() => showFeedback(false));
+  if (navigator.clipboard && navigator.clipboard.write) {
+    const htmlBlob = new Blob([html], { type: 'text/html' });
+    const textBlob = new Blob([tsv], { type: 'text/plain' });
+    navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
+      .then(() => showFeedback(true))
+      .catch(() => {
+        navigator.clipboard.writeText(tsv)
+          .then(() => showFeedback(true))
+          .catch(() => showFeedback(false));
+      });
   } else {
     const ta = document.createElement('textarea');
-    ta.value = text;
+    ta.value = tsv;
     ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
     document.body.appendChild(ta);
     ta.focus(); ta.select();
