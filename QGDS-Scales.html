@@ -603,36 +603,48 @@ function copyColumn(scaleId, colIndex, header, btn) {
     if (cells[colIndex]) cellValues.push(cells[colIndex].textContent.trim());
   });
 
-  const tsv = [headerText].concat(cellValues).join('\r\n');
-  const htmlRows = cellValues.map(v => '<tr><td>' + v + '</td></tr>').join('');
-  const html = '<table><thead><tr><th>' + headerText + '</th></tr></thead><tbody>' + htmlRows + '</tbody></table>';
-
   const orig = btn.innerHTML;
-
   function showFeedback(success) {
     if (success) { btn.classList.add('copied'); }
     setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
   }
 
-  if (navigator.clipboard && navigator.clipboard.write) {
-    const htmlBlob = new Blob([html], { type: 'text/html' });
-    const textBlob = new Blob([tsv], { type: 'text/plain' });
-    navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
-      .then(() => showFeedback(true))
-      .catch(() => {
-        navigator.clipboard.writeText(tsv)
-          .then(() => showFeedback(true))
-          .catch(() => showFeedback(false));
-      });
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = tsv;
-    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
-    document.body.appendChild(ta);
-    ta.focus(); ta.select();
-    try { document.execCommand('copy'); showFeedback(true); } catch(e) { showFeedback(false); }
-    document.body.removeChild(ta);
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const thRow = document.createElement('tr');
+  const th = document.createElement('th');
+  th.textContent = headerText;
+  thRow.appendChild(th);
+  thead.appendChild(thRow);
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  cellValues.forEach(v => {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.textContent = v;
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+  document.body.appendChild(table);
+
+  const range = document.createRange();
+  range.selectNode(table);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  try {
+    document.execCommand('copy');
+    showFeedback(true);
+  } catch(e) {
+    showFeedback(false);
   }
+
+  sel.removeAllRanges();
+  document.body.removeChild(table);
 }
 
 function copyTable(scaleId, thValId, thIncId, btn) {
@@ -652,15 +664,6 @@ function copyTable(scaleId, thValId, thIncId, btn) {
     ]);
   });
 
-  const tsv = ['n\t' + valHeader + '\t' + incHeader]
-    .concat(dataRows.map(r => r.join('\t')))
-    .join('\r\n');
-
-  const htmlRows = dataRows.map(r =>
-    '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>'
-  ).join('');
-  const html = '<table><thead><tr><th>n</th><th>' + valHeader + '</th><th>' + incHeader + '</th></tr></thead><tbody>' + htmlRows + '</tbody></table>';
-
   function showFeedback(success) {
     btn.textContent = success ? 'Copied!' : 'Not supported';
     btn.style.color = success ? '#0F6E56' : '#5F5E5A';
@@ -672,26 +675,45 @@ function copyTable(scaleId, thValId, thIncId, btn) {
     }, 2000);
   }
 
-  if (navigator.clipboard && navigator.clipboard.write) {
-    const htmlBlob = new Blob([html], { type: 'text/html' });
-    const textBlob = new Blob([tsv], { type: 'text/plain' });
-    navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })])
-      .then(() => showFeedback(true))
-      .catch(() => {
-        navigator.clipboard.writeText(tsv)
-          .then(() => showFeedback(true))
-          .catch(() => showFeedback(false));
-      });
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = tsv;
-    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
-    document.body.appendChild(ta);
-    ta.focus(); ta.select();
-    try { document.execCommand('copy'); showFeedback(true); }
-    catch(e) { showFeedback(false); }
-    document.body.removeChild(ta);
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const thRow = document.createElement('tr');
+  ['n', valHeader, incHeader].forEach(h => {
+    const th = document.createElement('th');
+    th.textContent = h;
+    thRow.appendChild(th);
+  });
+  thead.appendChild(thRow);
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  dataRows.forEach(r => {
+    const tr = document.createElement('tr');
+    r.forEach(v => {
+      const td = document.createElement('td');
+      td.textContent = v;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+  document.body.appendChild(table);
+
+  const range = document.createRange();
+  range.selectNode(table);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  try {
+    document.execCommand('copy');
+    showFeedback(true);
+  } catch(e) {
+    showFeedback(false);
   }
+
+  sel.removeAllRanges();
+  document.body.removeChild(table);
 }
 
 function resetDefaults() {
