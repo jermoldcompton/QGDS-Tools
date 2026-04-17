@@ -22,42 +22,42 @@ By: Jermold Compton
   body {
     font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 1rem;
-    color: #2C2C2A;
+    color: #333333;
     background: #ffffff;
     padding: 32px;
     max-width: 960px;
     margin: 0 auto;
   }
 
-  h1 { font-size: 2rem; font-weight: 600; color: #2C2C2A; margin-bottom: 0.5em; }
-  h2 { font-size: 1.5rem; font-weight: 600; color: #2C2C2A; margin-top: 48px; margin-bottom: 1em; }
-  h3 { font-size: 1.25rem; font-weight: 600; color: #2C2C2A; margin-top: 24px; margin-bottom: 0.5em; }
-  .subtitle { font-size: 0.8125rem; color: #5F5E5A; margin-bottom: 28px; line-height: 1.5; }
+  h1 { font-size: 2rem; font-weight: 600; color: #000053; margin-bottom: 0.5em; }
+  h2 { font-size: 1.5rem; font-weight: 600; color: #000053; margin-top: 48px; margin-bottom: 1em; }
+  h3 { font-size: 1.25rem; font-weight: 600; color: #000053; margin-top: 24px; margin-bottom: 0.5em; }
+  .subtitle { font-size: 1rem; color: #636363; margin-bottom: 28px; line-height: 1.5; }
 
   .tab-row { display: flex; gap: 8px; margin-bottom: 20px; }
   .tab-row > div > button:not(.unit-toggle button), .tab-row > button {
     font-size: 0.8125rem; font-family: inherit; padding: 6px 16px; cursor: pointer;
-    border-radius: 6px; border: 0.5px solid #B4B2A9; background: transparent;
-    color: #5F5E5A; font-weight: 400; transition: all 0.15s;
+    border-radius: 6px; border: 0.5px solid #666666; background: transparent;
+    color: #636363; font-weight: 400; transition: all 0.15s;
   }
-  .tab-row > div > button:not(.unit-toggle button):hover, .tab-row > button:hover { background: #F1EFE8; }
+  .tab-row > div > button:not(.unit-toggle button):hover, .tab-row > button:hover { background: #EEF4FC; }
   .tab-row > div > button:not(.unit-toggle button).active, .tab-row > button.active {
-    background: #F1EFE8; color: #2C2C2A; font-weight: 600; border: 1.5px solid #2C2C2A;
+    background: #005EB8; color: #ffffff; font-weight: 600; border: 1.5px solid #005EB8;
   }
   .tab-row .unit-toggle button { all: revert; }
   .tab-row .unit-toggle button {
     font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 0 12px;
-    cursor: pointer; border: none; background: transparent; color: #888780;
+    cursor: pointer; border: none; background: transparent; color: #767676;
     font-weight: 400; transition: all 0.15s; line-height: 1; height: 100%;
   }
-  .tab-row .unit-toggle button.active { background: #2C2C2A; color: #ffffff; font-weight: 500; }
-  .tab-row .unit-toggle button:first-child { border-right: 0.5px solid #B4B2A9; }
+  .tab-row .unit-toggle button.active { background: #005EB8; color: #ffffff; font-weight: 500; }
+  .tab-row .unit-toggle button:first-child { border-right: 0.5px solid #666666; }
 
   .legend { display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #5F5E5A; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #636363; }
   .legend-check { cursor: pointer; user-select: none; }
   .legend-check input[type="checkbox"] {
-    width: 14px; height: 14px; cursor: pointer; accent-color: #2C2C2A;
+    width: 14px; height: 14px; cursor: pointer; accent-color: #333333;
     margin: 0; flex-shrink: 0;
   }
   .legend-check.dimmed { opacity: 0.35; }
@@ -66,10 +66,10 @@ By: Jermold Compton
   .chart-wrap { position: relative; width: 100%; height: 320px; margin-bottom: 16px; }
 
   .annotation {
-    font-size: 0.8125rem; color: #5F5E5A; line-height: 1.7; padding: 12px 16px;
-    background: #F1EFE8; border-radius: 6px; border-left: 3px solid #B4B2A9;
+    font-size: 0.8125rem; color: #636363; line-height: 1.7; padding: 12px 16px;
+    background: #EEF4FC; border-radius: 6px; border-left: 3px solid #005EB8;
   }
-  .annotation strong { color: #2C2C2A; font-weight: 600; }
+  .annotation strong { color: #333333; font-weight: 600; }
 
   .meta {
     margin-top: 28px; padding-top: 0;
@@ -78,20 +78,20 @@ By: Jermold Compton
   @media (max-width: 600px) {
     .meta { grid-template-columns: 1fr; }
   }
-  .meta-card { background: #F1EFE8; border-radius: 8px; padding: 14px 16px; }
+  .meta-card { background: #EEF4FC; border-radius: 8px; padding: 14px 16px; }
   .meta-card .label {
-    font-size: 0.6875rem; color: #888780; font-weight: 500;
+    font-size: 0.6875rem; color: #767676; font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
   }
   .meta-card .scale-name { font-size: 0.875rem; font-weight: 600; margin-bottom: 4px; }
   .meta-card .formula {
     font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 0.6875rem; color: #5F5E5A; margin-bottom: 6px;
+    font-size: 0.6875rem; color: #636363; margin-bottom: 6px;
   }
-  .meta-card .rationale { font-size: 0.75rem; color: #5F5E5A; line-height: 1.5; }
+  .meta-card .rationale { font-size: 0.75rem; color: #636363; line-height: 1.5; }
 
-  .scales-section { margin-top: 32px; padding-top: 24px; border-top: 0.5px solid #D3D1C7; }
-  .section-sub { font-size: 0.75rem; color: #888780; margin-bottom: 20px; line-height: 1.6; }
+  .scales-section { margin-top: 32px; padding-top: 24px; border-top: 0.5px solid #cccccc; }
+  .section-sub { font-size: 0.75rem; color: #767676; margin-bottom: 20px; line-height: 1.6; }
 
   .scales-grid {
     display: grid;
@@ -108,7 +108,7 @@ By: Jermold Compton
   .scale-title { font-size: 1.25rem; font-weight: 600; }
   .live-formula {
     font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 0.625rem; color: #888780;
+    font-size: 0.625rem; color: #767676;
   }
 
   .inputs-grid {
@@ -121,68 +121,68 @@ By: Jermold Compton
 
   .input-field { display: flex; flex-direction: column; gap: 3px; }
   .input-field label {
-    font-size: 0.625rem; font-weight: 600; color: #888780;
+    font-size: 0.625rem; font-weight: 600; color: #767676;
     font-family: 'SF Mono', 'Fira Code', monospace;
     text-transform: uppercase; letter-spacing: 0.06em;
   }
   .input-field input {
     width: 100%; font-size: 0.75rem;
     font-family: 'SF Mono', 'Fira Code', monospace;
-    padding: 5px 8px; border: 0.5px solid #B4B2A9; border-radius: 5px;
-    color: #2C2C2A; background: #ffffff; outline: none; transition: border-color 0.1s;
+    padding: 5px 8px; border: 0.5px solid #666666; border-radius: 5px;
+    color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
   }
-  .input-field input:focus { border-color: #2C2C2A; }
-  .input-field .hint { font-size: 0.625rem; color: #B4B2A9; }
+  .input-field input:focus { border-color: #333333; }
+  .input-field .hint { font-size: 0.625rem; color: #666666; }
 
   .table-scroll {
     max-height: 400px; overflow-y: auto;
-    border: 0.5px solid #D3D1C7; border-radius: 6px;
+    border: 0.5px solid #cccccc; border-radius: 6px;
   }
   .table-scroll::-webkit-scrollbar { width: 4px; }
-  .table-scroll::-webkit-scrollbar-track { background: #F1EFE8; }
-  .table-scroll::-webkit-scrollbar-thumb { background: #B4B2A9; border-radius: 2px; }
+  .table-scroll::-webkit-scrollbar-track { background: #EEF4FC; }
+  .table-scroll::-webkit-scrollbar-thumb { background: #cccccc; border-radius: 2px; }
 
   .scale-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
   .scale-table thead th {
-    font-size: 0.625rem; font-weight: 500; color: #888780; text-align: right;
-    padding: 5px 10px; border-bottom: 0.5px solid #D3D1C7;
-    background: #F9F8F5; position: sticky; top: 0;
+    font-size: 0.625rem; font-weight: 600; color: #ffffff; text-align: right;
+    padding: 7px 10px; border-bottom: none;
+    background: #003F7A; position: sticky; top: 0;
     font-family: 'SF Mono', 'Fira Code', monospace;
-    text-transform: uppercase; letter-spacing: 0.05em;
+    text-transform: uppercase; letter-spacing: 0.07em;
   }
   .scale-table thead th:first-child { text-align: left; }
-  .scale-table tbody tr:nth-child(even) { background: #F9F8F5; }
+  .scale-table tbody tr:nth-child(even) { background: #F5F5F5; }
   .scale-table tbody td {
-    padding: 4px 10px; color: #2C2C2A;
+    padding: 4px 10px; color: #333333;
     font-family: 'SF Mono', 'Fira Code', monospace;
-    text-align: right; border-bottom: 0.5px solid #F1EFE8;
+    text-align: right; border-bottom: 0.5px solid #EEF4FC;
   }
-  .scale-table tbody td:first-child { color: #888780; text-align: left; }
-  .scale-table tbody td.changed { color: #A32D2D; font-weight: 600; }
+  .scale-table tbody td:first-child { color: #767676; text-align: left; }
+  .scale-table tbody td.changed { color: #9E0029; font-weight: 600; }
 
   .table-controls {
     display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
   }
   .unit-toggle {
-    display: flex; align-items: center; border: 0.5px solid #B4B2A9; border-radius: 6px; overflow: hidden;
+    display: flex; align-items: center; border: 0.5px solid #666666; border-radius: 6px; overflow: hidden;
     height: 32px;
   }
   .unit-toggle button {
     font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace; padding: 0 12px;
-    cursor: pointer; border: none; background: transparent; color: #888780;
+    cursor: pointer; border: none; background: transparent; color: #767676;
     font-weight: 400; transition: all 0.15s; line-height: 1; height: 100%;
   }
-  .unit-toggle button.active { background: #2C2C2A; color: #ffffff; font-weight: 500; }
-  .unit-toggle button:first-child { border-right: 0.5px solid #B4B2A9; }
+  .unit-toggle button.active { background: #005EB8; color: #ffffff; font-weight: 500; }
+  .unit-toggle button:first-child { border-right: 0.5px solid #666666; }
 
   .steps-control { display: flex; align-items: center; gap: 8px; }
-  .steps-control label { font-size: 0.75rem; color: #888780; }
+  .steps-control label { font-size: 0.75rem; color: #767676; }
   .steps-control input {
     width: 64px; font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace;
-    padding: 5px 8px; border: 0.5px solid #B4B2A9; border-radius: 5px;
-    color: #2C2C2A; background: #ffffff; outline: none; transition: border-color 0.1s;
+    padding: 5px 8px; border: 0.5px solid #666666; border-radius: 5px;
+    color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
   }
-  .steps-control input:focus { border-color: #2C2C2A; }
+  .steps-control input:focus { border-color: #333333; }
 
   .copy-col-row {
     display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 6px; margin-bottom: 2px; gap: 0;
@@ -190,13 +190,13 @@ By: Jermold Compton
   .copy-col-btn {
     display: flex; align-items: center; justify-content: center;
     padding: 5px 0; cursor: pointer; border-radius: 5px;
-    border: 0.5px solid #B4B2A9; background: transparent;
-    color: #888780; transition: all 0.15s; gap: 4px;
+    border: 0.5px solid #666666; background: transparent;
+    color: #767676; transition: all 0.15s; gap: 4px;
     font-size: 0.6875rem; font-family: inherit;
   }
   .copy-col-btn + .copy-col-btn { margin-left: 6px; }
-  .copy-col-btn:hover { background: #F1EFE8; color: #2C2C2A; }
-  .copy-col-btn.copied { color: #0F6E56; border-color: #0F6E56; }
+  .copy-col-btn:hover { background: #EEF4FC; color: #333333; }
+  .copy-col-btn.copied { color: #00783A; border-color: #00783A; }
 
   @media (max-width: 600px) {
     body { padding: 20px; }
@@ -207,22 +207,22 @@ By: Jermold Compton
 
   .copy-table-btn {
     margin-top: 8px; font-size: 0.75rem; font-family: inherit; padding: 5px 14px;
-    cursor: pointer; border-radius: 6px; border: 0.5px solid #B4B2A9;
-    background: transparent; color: #5F5E5A; width: 100%; transition: all 0.15s;
+    cursor: pointer; border-radius: 6px; border: 0.5px solid #666666;
+    background: transparent; color: #636363; width: 100%; transition: all 0.15s;
   }
-  .copy-table-btn:hover { background: #F1EFE8; }
+  .copy-table-btn:hover { background: #EEF4FC; }
 
   .export-row {
-    margin-top: 24px; padding-top: 20px; border-top: 0.5px solid #D3D1C7;
+    margin-top: 24px; padding-top: 20px; border-top: 0.5px solid #cccccc;
     display: flex; align-items: center; gap: 12px;
   }
-  .export-row span { font-size: 0.75rem; color: #888780; }
+  .export-row span { font-size: 0.75rem; color: #767676; }
   .export-btn {
     font-size: 0.75rem; font-family: inherit; padding: 0 14px; cursor: pointer;
-    border-radius: 6px; border: 0.5px solid #B4B2A9; background: transparent;
-    color: #5F5E5A; transition: all 0.15s; height: 32px;
+    border-radius: 6px; border: 0.5px solid #666666; background: transparent;
+    color: #636363; transition: all 0.15s; height: 32px;
   }
-  .export-btn:hover { background: #F1EFE8; }
+  .export-btn:hover { background: #EEF4FC; }
 </style>
 </head>
 <body>
@@ -242,11 +242,11 @@ By: Jermold Compton
       <button class="active" onclick="setUnit('px', this)">px</button>
       <button onclick="setUnit('rem', this)">rem</button>
     </div>
-    <label for="chart-steps-input" style="font-size:0.75rem; color:#888780;">Steps</label>
+    <label for="chart-steps-input" style="font-size:0.75rem; color:#767676;">Steps</label>
     <input type="number" id="chart-steps-input" value="48" min="4" max="200" step="1"
       style="width:64px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
-             padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
-             color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
+             padding:0 8px; border:0.5px solid #666666; border-radius:5px;
+             color:#333333; background:#ffffff; outline:none; height:32px;"
       oninput="document.getElementById('steps-input').value=this.value; refreshAll()">
     <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding:5px 14px;">Reset</button>
   </div>
@@ -255,7 +255,7 @@ By: Jermold Compton
 <div class="legend">
   <label class="legend-item legend-check">
     <input type="checkbox" id="vis-grid" checked onchange="refreshChart()">
-    Grid<span class="legend-swatch" style="background:#E24B4A;"></span>
+    Grid<span class="legend-swatch" style="background:#CE0037;"></span>
   </label>
   <label class="legend-item legend-check">
     <input type="checkbox" id="vis-size" checked onchange="refreshChart()">
@@ -263,7 +263,7 @@ By: Jermold Compton
   </label>
   <label class="legend-item legend-check">
     <input type="checkbox" id="vis-spac" checked onchange="refreshChart()">
-    Spacing<span class="legend-swatch" style="background:#0F6E56;"></span>
+    Spacing<span class="legend-swatch" style="background:#00783A;"></span>
   </label>
 </div>
 
@@ -277,7 +277,7 @@ By: Jermold Compton
   <button class="export-btn" onclick="copyPNG(this)">Copy PNG</button>
 </div>
 
-<div style="border-top: 0.5px solid #D3D1C7; padding-top: 20px; margin-top: 0;">
+<div style="border-top: 0.5px solid #cccccc; padding-top: 20px; margin-top: 0;">
 
 <div id="annotation-cumulative" class="annotation">
   Size and Spacing both start at <strong>2× the Grid increment</strong> (a=4 vs a=2) and pull further ahead as their faster growth intervals accumulate. All three scales share the same stepped exponential structure, diverging by design, not by accident.
@@ -291,19 +291,19 @@ By: Jermold Compton
 <div class="meta">
   <div class="meta-card">
     <div class="label">Common denominator</div>
-    <div class="scale-name" style="color:#A32D2D;">Grid</div>
+    <div class="scale-name" style="color:#9E0029;">Grid</div>
     <div class="formula" id="meta-grid">S=0, a=2, b=2, c=24</div>
     <div class="rationale">Grows at the base rate, underpinning both spacing and sizing as the common denominator across the system.</div>
   </div>
   <div class="meta-card">
     <div class="label">Element sizing</div>
-    <div class="scale-name" style="color:#004180;">Size</div>
+    <div class="scale-name" style="color:#003F7A;">Size</div>
     <div class="formula" id="meta-size">S=0, a=4, b=2, c=12</div>
     <div class="rationale">Doubles twice as fast as Grid. UI elements require visually distinct steps, as small increments at large values are imperceptible.</div>
   </div>
   <div class="meta-card">
     <div class="label">Spatial hierarchy</div>
-    <div class="scale-name" style="color:#085041;">Spacing</div>
+    <div class="scale-name" style="color:#005C2C;">Spacing</div>
     <div class="formula" id="meta-spac">S=0, a=4, b=2, c=8</div>
     <div class="rationale">Doubles three times as fast as Grid. Spatial relationships require strong contrast to communicate hierarchy across their range.</div>
   </div>
@@ -314,21 +314,21 @@ By: Jermold Compton
   <p class="section-sub">Each scale follows the formula, where the base increment, growth factor, and doubling interval can be adjusted independently. The tool visualises how the three scales diverge over their range, demonstrates why their parameters were chosen, and allows practitioners to explore the effect of changing any variable in real time. Use it to audit token values, validate scale decisions, export reference data for spreadsheets, or communicate the underlying structure of the system to stakeholders and engineers.</p>
   <p class="section-sub">
     Formula:<br>
-    <span style="font-family:'SF Mono','Fira Code',monospace; font-size:1rem; font-weight:600; color:#005EB8;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</span><br><br>
+    <span style="font-family:'SF Mono','Fira Code',monospace; font-size:1rem; font-weight:600; color:#333333;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</span><br><br>
     where:<br>
     S = start value, a = base increment, b = growth factor, c = interval.<br>
     Values highlighted in red have changed from defaults.
   </p>
 
-  <div style="border-top: 0.5px solid #D3D1C7; margin-bottom: 24px;"></div>
+  <div style="border-top: 0.5px solid #cccccc; margin-bottom: 24px;"></div>
 
   <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:24px; flex-wrap:wrap; row-gap:12px;">
     <div style="display:flex; align-items:center; gap:8px;">
-      <label for="table-height-input" style="font-size:0.75rem; color:#888780;">Table height (px)</label>
+      <label for="table-height-input" style="font-size:0.75rem; color:#767676;">Table height (px)</label>
       <input type="number" id="table-height-input" value="400" min="100" max="2000" step="10"
         style="width:72px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
-               padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
-               color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
+               padding:0 8px; border:0.5px solid #666666; border-radius:5px;
+               color:#333333; background:#ffffff; outline:none; height:32px;"
         oninput="updateTableHeight(this.value)">
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
@@ -336,11 +336,11 @@ By: Jermold Compton
         <button class="active" onclick="setUnit('px', this)">px</button>
         <button onclick="setUnit('rem', this)">rem</button>
       </div>
-      <label for="steps-input" style="font-size:0.75rem; color:#888780;">Steps</label>
+      <label for="steps-input" style="font-size:0.75rem; color:#767676;">Steps</label>
       <input type="number" id="steps-input" value="48" min="4" max="200" step="1"
         style="width:64px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
-               padding:0 8px; border:0.5px solid #B4B2A9; border-radius:5px;
-               color:#2C2C2A; background:#ffffff; outline:none; height:32px;"
+               padding:0 8px; border:0.5px solid #666666; border-radius:5px;
+               color:#333333; background:#ffffff; outline:none; height:32px;"
         oninput="document.getElementById('chart-steps-input').value=this.value; refreshAll()">
       <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding: 5px 14px;">Reset</button>
     </div>
@@ -350,7 +350,7 @@ By: Jermold Compton
 
     <div class="scale-block">
       <div class="scale-title-row">
-        <h3 class="scale-title" style="color:#A32D2D;">Grid</h3>
+        <h3 class="scale-title" style="color:#9E0029;">Grid</h3>
         <span class="live-formula" id="lf-grid"></span>
       </div>
       <div class="inputs-grid">
@@ -400,7 +400,7 @@ By: Jermold Compton
 
     <div class="scale-block">
       <div class="scale-title-row">
-        <h3 class="scale-title" style="color:#004180;">Size</h3>
+        <h3 class="scale-title" style="color:#003F7A;">Size</h3>
         <span class="live-formula" id="lf-size"></span>
       </div>
       <div class="inputs-grid">
@@ -450,7 +450,7 @@ By: Jermold Compton
 
     <div class="scale-block">
       <div class="scale-title-row">
-        <h3 class="scale-title" style="color:#085041;">Spacing</h3>
+        <h3 class="scale-title" style="color:#005C2C;">Spacing</h3>
         <span class="live-formula" id="lf-spac"></span>
       </div>
       <div class="inputs-grid">
@@ -500,16 +500,16 @@ By: Jermold Compton
 
   </div>
 
-  <p style="font-size: 0.6875rem; color: #888780; margin-top: 12px; line-height: 1.7;">
-    <strong style="font-weight: 500; color: #5F5E5A;">n</strong> = step number &nbsp;&nbsp;
-    <strong style="font-weight: 500; color: #5F5E5A;">value</strong> = cumulative scale value at step n &nbsp;&nbsp;
-    <strong style="font-weight: 500; color: #5F5E5A;">inc</strong> = increment added at step n
+  <p style="font-size: 0.6875rem; color: #767676; margin-top: 12px; line-height: 1.7;">
+    <strong style="font-weight: 500; color: #636363;">n</strong> = step number &nbsp;&nbsp;
+    <strong style="font-weight: 500; color: #636363;">value</strong> = cumulative scale value at step n &nbsp;&nbsp;
+    <strong style="font-weight: 500; color: #636363;">inc</strong> = increment added at step n
   </p>
 
 </div>
 
 <script>
-const RED = '#E24B4A', PURPLE = '#005EB8', TEAL = '#0F6E56';
+const RED = '#CE0037', PURPLE = '#005EB8', TEAL = '#00783A';
 const REM_BASE = 16;
 
 const DEFAULTS = {
@@ -652,14 +652,14 @@ function buildChart(g, s, p, steps) {
       plugins: { legend: { display: false } },
       scales: {
         x: {
-          ticks: { color: '#888780', font: { size: 11 }, maxTicksLimit: 13 },
+          ticks: { color: '#767676', font: { size: 11 }, maxTicksLimit: 13 },
           grid: { color: 'rgba(136,135,128,0.12)' },
-          title: { display: true, text: 'step (n)', color: '#888780', font: { size: 11 } }
+          title: { display: true, text: 'step (n)', color: '#767676', font: { size: 11 } }
         },
         y: {
-          ticks: { color: '#888780', font: { size: 11 } },
+          ticks: { color: '#767676', font: { size: 11 } },
           grid: { color: 'rgba(136,135,128,0.12)' },
-          title: { display: true, text: yLabel, color: '#888780', font: { size: 11 } }
+          title: { display: true, text: yLabel, color: '#767676', font: { size: 11 } }
         }
       },
       interaction: { mode: 'index', intersect: false },
@@ -740,12 +740,12 @@ function copyTable(scaleId, thValId, thIncId, btn) {
 
   function showFeedback(success) {
     btn.textContent = success ? 'Copied!' : 'Not supported';
-    btn.style.color = success ? '#0F6E56' : '#5F5E5A';
-    btn.style.borderColor = success ? '#0F6E56' : '#B4B2A9';
+    btn.style.color = success ? '#00783A' : '#636363';
+    btn.style.borderColor = success ? '#00783A' : '#666666';
     setTimeout(() => {
       btn.textContent = orig;
-      btn.style.color = '#5F5E5A';
-      btn.style.borderColor = '#B4B2A9';
+      btn.style.color = '#636363';
+      btn.style.borderColor = '#666666';
     }, 2000);
   }
 
@@ -862,12 +862,12 @@ function copyPNG(btn) {
     navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
       .then(() => {
         const orig = btn.textContent;
-        btn.textContent = 'Copied!'; btn.style.color = '#0F6E56'; btn.style.borderColor = '#0F6E56';
-        setTimeout(() => { btn.textContent = orig; btn.style.color = '#5F5E5A'; btn.style.borderColor = '#B4B2A9'; }, 2000);
+        btn.textContent = 'Copied!'; btn.style.color = '#00783A'; btn.style.borderColor = '#00783A';
+        setTimeout(() => { btn.textContent = orig; btn.style.color = '#636363'; btn.style.borderColor = '#666666'; }, 2000);
       })
       .catch(() => {
         btn.textContent = 'Not supported';
-        setTimeout(() => { btn.textContent = 'Copy PNG'; btn.style.color = '#5F5E5A'; }, 2000);
+        setTimeout(() => { btn.textContent = 'Copy PNG'; btn.style.color = '#636363'; }, 2000);
       });
   }, 'image/png');
 }
@@ -875,7 +875,8 @@ function copyPNG(btn) {
 refreshAll();
 </script>
 
-<p style="font-size: 0.6875rem; color: #B4B2A9; margin-top: 32px; line-height: 1.7;">
+<hr style="border: none; border-top: 0.5px solid #cccccc; margin-top: 64px;">
+<p style="font-size: 0.6875rem; color: #bbbbbb; margin-top: 16px; line-height: 1.7;">
   Generated by Jermold Compton.<br>
   Senior UI and UX Designer, Queensland Government
 </p>
