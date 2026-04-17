@@ -1,6 +1,0 @@
-#!/bin/bash
-FILE="QGDS-Scales.html"
-VERSION=$(date -u +"%y%m%d%H")
-sed -i.bak -E "s|Preview: https://jermoldcompton\.github\.io/QGDS-Tools/QGDS-Scales\.html(\?v=[0-9]+)?|Preview: https://jermoldcompton.github.io/QGDS-Tools/QGDS-Scales.html?v=$VERSION|g" "$FILE"
-rm -f "${FILE}.bak"
-git add "$FILE"
