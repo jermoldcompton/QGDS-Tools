@@ -18,7 +18,7 @@ By: Jermold Compton
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
   body {
     font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-size: 1rem;
@@ -28,12 +28,12 @@ By: Jermold Compton
     max-width: 960px;
     margin: 0 auto;
   }
-
+ 
   h1 { font-size: 2rem; font-weight: 600; color: #000053; margin-bottom: 0.5em; }
   h2 { font-size: 1.5rem; font-weight: 600; color: #000053; margin-top: 48px; margin-bottom: 1em; }
   h3 { font-size: 1.25rem; font-weight: 600; color: #000053; margin-top: 24px; margin-bottom: 0.5em; }
   .subtitle { font-size: 1rem; color: #636363; margin-bottom: 28px; line-height: 1.5; }
-
+ 
   .tab-row { display: flex; gap: 8px; margin-bottom: 20px; }
   .tab-row > div > button:not(.unit-toggle button), .tab-row > button {
     font-size: 0.8125rem; font-family: inherit; padding: 6px 16px; cursor: pointer;
@@ -52,7 +52,7 @@ By: Jermold Compton
   }
   .tab-row .unit-toggle button.active { background: #005EB8; color: #ffffff; font-weight: 500; }
   .tab-row .unit-toggle button:first-child { border-right: 0.5px solid #666666; }
-
+ 
   .legend { display: flex; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; color: #636363; }
   .legend-check { cursor: pointer; user-select: none; }
@@ -62,15 +62,15 @@ By: Jermold Compton
   }
   .legend-check.dimmed { opacity: 0.35; }
   .legend-swatch { width: 28px; height: 3px; border-radius: 2px; flex-shrink: 0; }
-
+ 
   .chart-wrap { position: relative; width: 100%; height: 320px; margin-bottom: 16px; }
-
+ 
   .annotation {
     font-size: 0.8125rem; color: #636363; line-height: 1.7; padding: 12px 16px;
     background: #EEF4FC; border-radius: 6px; border-left: 3px solid #005EB8;
   }
   .annotation strong { color: #333333; font-weight: 600; }
-
+ 
   .meta {
     margin-top: 28px; padding-top: 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -89,19 +89,19 @@ By: Jermold Compton
     font-size: 0.6875rem; color: #636363; margin-bottom: 6px;
   }
   .meta-card .rationale { font-size: 0.75rem; color: #636363; line-height: 1.5; }
-
+ 
   .scales-section { margin-top: 32px; padding-top: 24px; border-top: 0.5px solid #cccccc; }
-  .section-sub { font-size: 0.75rem; color: #767676; margin-bottom: 20px; line-height: 1.6; }
-
+  .section-sub { font-size: 1rem; color: #636363; margin-bottom: 20px; line-height: 1.6; }
+ 
   .scales-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
     align-items: start;
   }
-
+ 
   .scale-block { display: flex; flex-direction: column; }
-
+ 
   .scale-title-row {
     display: flex; flex-direction: column; gap: 4px; margin-bottom: 0;
   }
@@ -110,7 +110,7 @@ By: Jermold Compton
     font-family: 'SF Mono', 'Fira Code', monospace;
     font-size: 0.625rem; color: #767676;
   }
-
+ 
   .inputs-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -118,7 +118,7 @@ By: Jermold Compton
     margin-top: 24px;
     margin-bottom: 32px;
   }
-
+ 
   .input-field { display: flex; flex-direction: column; gap: 3px; }
   .input-field label {
     font-size: 0.625rem; font-weight: 600; color: #767676;
@@ -128,12 +128,12 @@ By: Jermold Compton
   .input-field input {
     width: 100%; font-size: 0.75rem;
     font-family: 'SF Mono', 'Fira Code', monospace;
-    padding: 5px 8px; border: 0.5px solid #666666; border-radius: 5px;
+    padding: 0 8px; height: 32px; border: 0.5px solid #666666; border-radius: 5px;
     color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
   }
   .input-field input:focus { border-color: #333333; }
   .input-field .hint { font-size: 0.625rem; color: #666666; }
-
+ 
   .table-scroll {
     max-height: 400px; overflow-y: auto;
     border: 0.5px solid #cccccc; border-radius: 6px;
@@ -141,7 +141,7 @@ By: Jermold Compton
   .table-scroll::-webkit-scrollbar { width: 4px; }
   .table-scroll::-webkit-scrollbar-track { background: #EEF4FC; }
   .table-scroll::-webkit-scrollbar-thumb { background: #cccccc; border-radius: 2px; }
-
+ 
   .scale-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
   .scale-table thead th {
     font-size: 0.625rem; font-weight: 600; color: #ffffff; text-align: right;
@@ -159,7 +159,7 @@ By: Jermold Compton
   }
   .scale-table tbody td:first-child { color: #767676; text-align: left; }
   .scale-table tbody td.changed { color: #9E0029; font-weight: 600; }
-
+ 
   .table-controls {
     display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
   }
@@ -174,7 +174,7 @@ By: Jermold Compton
   }
   .unit-toggle button.active { background: #005EB8; color: #ffffff; font-weight: 500; }
   .unit-toggle button:first-child { border-right: 0.5px solid #666666; }
-
+ 
   .steps-control { display: flex; align-items: center; gap: 8px; }
   .steps-control label { font-size: 0.75rem; color: #767676; }
   .steps-control input {
@@ -183,13 +183,13 @@ By: Jermold Compton
     color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
   }
   .steps-control input:focus { border-color: #333333; }
-
+ 
   .copy-col-row {
     display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 6px; margin-bottom: 2px; gap: 0;
   }
   .copy-col-btn {
     display: flex; align-items: center; justify-content: center;
-    padding: 5px 0; cursor: pointer; border-radius: 5px;
+    height: 32px; padding: 0; cursor: pointer; border-radius: 5px;
     border: 0.5px solid #666666; background: transparent;
     color: #767676; transition: all 0.15s; gap: 4px;
     font-size: 0.6875rem; font-family: inherit;
@@ -197,21 +197,21 @@ By: Jermold Compton
   .copy-col-btn + .copy-col-btn { margin-left: 6px; }
   .copy-col-btn:hover { background: #EEF4FC; color: #333333; }
   .copy-col-btn.copied { color: #00783A; border-color: #00783A; }
-
+ 
   @media (max-width: 600px) {
     body { padding: 20px; }
     .col-btn-label { display: none; }
     .input-field input { width: 100%; min-width: 0; }
     .scales-grid { grid-template-columns: 1fr; }
   }
-
+ 
   .copy-table-btn {
-    margin-top: 8px; font-size: 0.75rem; font-family: inherit; padding: 5px 14px;
+    margin-top: 8px; font-size: 0.75rem; font-family: inherit; padding: 0 14px; height: 32px;
     cursor: pointer; border-radius: 6px; border: 0.5px solid #666666;
     background: transparent; color: #636363; width: 100%; transition: all 0.15s;
   }
   .copy-table-btn:hover { background: #EEF4FC; }
-
+ 
   .export-row {
     margin-top: 24px; padding-top: 20px; border-top: 0.5px solid #cccccc;
     display: flex; align-items: center; gap: 12px;
@@ -226,12 +226,12 @@ By: Jermold Compton
 </style>
 </head>
 <body>
-
+ 
 <h1>QGDS Scales</h1>
 <p class="subtitle">QGDS Scales is an interactive reference tool for exploring the mathematical relationships between the three core token scales in the Queensland Government Design System: Grid, Size, and Spacing. These scales share an exponential structure with calibrated divergence rates, each tuned to the perceptual demands of its role.</p>
-
+ 
 <h2>Scale relationship</h2>
-
+ 
 <div class="tab-row" style="justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; row-gap: 12px;">
   <div style="display:flex; gap:8px;">
     <button class="active" onclick="showTab('cumulative', this)">Cumulative values</button>
@@ -251,7 +251,7 @@ By: Jermold Compton
     <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding:5px 14px;">Reset</button>
   </div>
 </div>
-
+ 
 <div class="legend">
   <label class="legend-item legend-check">
     <input type="checkbox" id="vis-grid" checked onchange="refreshChart()">
@@ -266,28 +266,28 @@ By: Jermold Compton
     Spacing<span class="legend-swatch" style="background:#00783A;"></span>
   </label>
 </div>
-
+ 
 <div class="chart-wrap">
   <canvas id="mainChart" role="img" aria-label="Line chart comparing Grid, Size and Spacing scale values across 48 steps">Grid scale grows slowly as the common denominator; Size and Spacing diverge progressively faster.</canvas>
 </div>
-
+ 
 <div class="export-row" style="margin-top: 12px; margin-bottom: 32px; padding-top: 0; border-top: none;">
   <span>Export chart</span>
   <button class="export-btn" onclick="exportImage('png')">Download PNG</button>
   <button class="export-btn" onclick="copyPNG(this)">Copy PNG</button>
 </div>
-
+ 
 <div style="border-top: 0.5px solid #cccccc; padding-top: 20px; margin-top: 0;">
-
+ 
 <div id="annotation-cumulative" class="annotation">
   Size and Spacing both start at <strong>2× the Grid increment</strong> (a=4 vs a=2) and pull further ahead as their faster growth intervals accumulate. All three scales share the same stepped exponential structure, diverging by design, not by accident.
 </div>
 <div id="annotation-increments" class="annotation" style="display:none;">
   Each scale's step size stays flat, then <strong>doubles</strong> at its interval, every 24 steps for Grid, 12 for Size, 8 for Spacing. The doubling intervals are in the ratio <strong>3 : 2 : 1</strong>.
 </div>
-
+ 
 </div>
-
+ 
 <div class="meta">
   <div class="meta-card">
     <div class="label">Common denominator</div>
@@ -308,20 +308,20 @@ By: Jermold Compton
     <div class="rationale">Doubles three times as fast as Grid. Spatial relationships require strong contrast to communicate hierarchy across their range.</div>
   </div>
 </div>
-
+ 
 <div class="scales-section">
   <h2>Scale explorer</h2>
   <p class="section-sub">Each scale follows the formula, where the base increment, growth factor, and doubling interval can be adjusted independently. The tool visualises how the three scales diverge over their range, demonstrates why their parameters were chosen, and allows practitioners to explore the effect of changing any variable in real time. Use it to audit token values, validate scale decisions, export reference data for spreadsheets, or communicate the underlying structure of the system to stakeholders and engineers.</p>
   <p class="section-sub">
     Formula:<br>
-    <span style="font-family:'SF Mono','Fira Code',monospace; font-size:1rem; font-weight:600; color:#333333;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</span><br><br>
+    <span style="font-family:'SF Mono','Fira Code',monospace; font-size:1.25rem; font-weight:600; color:#333333;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</span><br><br>
     where:<br>
     S = start value, a = base increment, b = growth factor, c = interval.<br>
     Values highlighted in red have changed from defaults.
   </p>
-
+ 
   <div style="border-top: 0.5px solid #cccccc; margin-bottom: 24px;"></div>
-
+ 
   <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:24px; flex-wrap:wrap; row-gap:12px;">
     <div style="display:flex; align-items:center; gap:8px;">
       <label for="table-height-input" style="font-size:0.75rem; color:#767676;">Table height (px)</label>
@@ -345,9 +345,9 @@ By: Jermold Compton
       <button class="export-btn" onclick="resetDefaults()" style="font-size:0.75rem; padding: 5px 14px;">Reset</button>
     </div>
   </div>
-
+ 
   <div class="scales-grid">
-
+ 
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#9E0029;">Grid</h3>
@@ -397,7 +397,7 @@ By: Jermold Compton
       </div>
       <button class="copy-table-btn" onclick="copyTable('grid', 'th-val-grid', 'th-inc-grid', this)">Copy table</button>
     </div>
-
+ 
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#003F7A;">Size</h3>
@@ -447,7 +447,7 @@ By: Jermold Compton
       </div>
       <button class="copy-table-btn" onclick="copyTable('size', 'th-val-size', 'th-inc-size', this)">Copy table</button>
     </div>
-
+ 
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#005C2C;">Spacing</h3>
@@ -497,42 +497,42 @@ By: Jermold Compton
       </div>
       <button class="copy-table-btn" onclick="copyTable('spac', 'th-val-spac', 'th-inc-spac', this)">Copy table</button>
     </div>
-
+ 
   </div>
-
+ 
   <p style="font-size: 0.6875rem; color: #767676; margin-top: 12px; line-height: 1.7;">
     <strong style="font-weight: 500; color: #636363;">n</strong> = step number &nbsp;&nbsp;
     <strong style="font-weight: 500; color: #636363;">value</strong> = cumulative scale value at step n &nbsp;&nbsp;
     <strong style="font-weight: 500; color: #636363;">inc</strong> = increment added at step n
   </p>
-
+ 
 </div>
-
+ 
 <script>
 const RED = '#CE0037', PURPLE = '#005EB8', TEAL = '#00783A';
 const REM_BASE = 16;
-
+ 
 const DEFAULTS = {
   grid: { S: 0, a: 2, b: 2, c: 24 },
   size: { S: 0, a: 4, b: 2, c: 12 },
   spac: { S: 0, a: 4, b: 2, c: 8  }
 };
-
+ 
 let currentUnit = 'px';
-
+ 
 function updateTableHeight(val) {
   const h = Math.max(100, Math.min(2000, parseInt(val) || 400));
   document.querySelectorAll('.table-scroll').forEach(el => el.style.maxHeight = h + 'px');
 }
-
+ 
 function getSteps() {
   return Math.max(4, Math.min(200, parseInt(document.getElementById('steps-input').value) || 48));
 }
-
+ 
 function getChartSteps() {
   return Math.max(4, Math.min(200, parseInt(document.getElementById('chart-steps-input').value) || 48));
 }
-
+ 
 function refreshChart() {
   const chartSteps = getChartSteps();
   const gv = getVars('grid'), sv = getVars('size'), pv = getVars('spac');
@@ -541,7 +541,7 @@ function refreshChart() {
   const p = computeScale(pv.S, pv.a, pv.b, pv.c, chartSteps);
   buildChart(g, s, p, chartSteps);
 }
-
+ 
 function setUnit(unit, btn) {
   currentUnit = unit;
   document.querySelectorAll('.unit-toggle button').forEach(b => {
@@ -549,12 +549,12 @@ function setUnit(unit, btn) {
   });
   refreshAll();
 }
-
+ 
 function fmt(pxVal) {
   if (currentUnit === 'rem') return (pxVal / REM_BASE).toFixed(3) + '';
   return Math.round(pxVal) + '';
 }
-
+ 
 function getVars(id) {
   return {
     S: parseFloat(document.getElementById(id+'-S').value) || 0,
@@ -563,7 +563,7 @@ function getVars(id) {
     c: Math.max(1, parseFloat(document.getElementById(id+'-c').value) || 1)
   };
 }
-
+ 
 function computeScale(S, a, b, c, steps) {
   const vals = [S], incs = [];
   for (let n = 1; n <= steps; n++) {
@@ -573,7 +573,7 @@ function computeScale(S, a, b, c, steps) {
   }
   return { vals, incs };
 }
-
+ 
 function renderTable(tbodyId, tableId, scale, def, vars, steps) {
   const unit = currentUnit;
   document.getElementById('th-val-' + tableId).textContent = `value (${unit})`;
@@ -592,21 +592,21 @@ function renderTable(tbodyId, tableId, scale, def, vars, steps) {
   }
   document.getElementById(tbodyId).innerHTML = html;
 }
-
+ 
 function updateMeta(id, vars) {
   document.getElementById('meta-' + id).textContent =
     `S=${vars.S}, a=${vars.a}, b=${vars.b}, c=${vars.c}`;
   document.getElementById('lf-' + id).textContent =
     `${vars.a} × ${vars.b}^⌊(n−1)/${vars.c}⌋`;
 }
-
+ 
 let currentTab = 'cumulative';
 let chart;
-
+ 
 function toUnit(arr) {
   return currentUnit === 'rem' ? arr.map(v => v === null ? null : parseFloat((v / REM_BASE).toFixed(3))) : arr;
 }
-
+ 
 function getVisibility() {
   return {
     grid: document.getElementById('vis-grid').checked,
@@ -614,18 +614,18 @@ function getVisibility() {
     spac: document.getElementById('vis-spac').checked
   };
 }
-
+ 
 function buildChart(g, s, p, steps) {
   const chartLabels = Array.from({length: steps + 1}, (_, i) => i);
   const unit = currentUnit;
   const yLabel = currentTab === 'cumulative' ? `value (${unit})` : `increment (${unit})`;
   const vis = getVisibility();
-
+ 
   ['grid','size','spac'].forEach(id => {
     const label = document.getElementById('vis-' + id).closest('.legend-check');
     if (label) label.classList.toggle('dimmed', !vis[id]);
   });
-
+ 
   const allDs = {
     cumulative: [
       { id: 'grid', label: 'Grid',    data: toUnit(g.vals),            borderColor: RED,    borderWidth: 2, pointRadius: 0, tension: 0.3 },
@@ -638,11 +638,11 @@ function buildChart(g, s, p, steps) {
       { id: 'spac', label: 'Spacing', data: toUnit([null, ...p.incs]), borderColor: TEAL,   borderWidth: 2, pointRadius: 0, stepped: true },
     ]
   };
-
+ 
   const datasets = allDs[currentTab]
     .filter(d => vis[d.id])
     .map(({ id, ...rest }) => rest);
-
+ 
   if (chart) chart.destroy();
   chart = new Chart(document.getElementById('mainChart'), {
     type: 'line',
@@ -667,7 +667,7 @@ function buildChart(g, s, p, steps) {
     }
   });
 }
-
+ 
 function copyColumn(scaleId, colIndex, header, btn) {
   const rows = document.querySelectorAll('#tbody-' + scaleId + ' tr');
   const headerText = header.trim();
@@ -676,13 +676,13 @@ function copyColumn(scaleId, colIndex, header, btn) {
     const cells = Array.from(row.querySelectorAll('td'));
     if (cells[colIndex]) cellValues.push(cells[colIndex].textContent.trim());
   });
-
+ 
   const orig = btn.innerHTML;
   function showFeedback(success) {
     if (success) { btn.classList.add('copied'); }
     setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
   }
-
+ 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const thRow = document.createElement('tr');
@@ -700,33 +700,33 @@ function copyColumn(scaleId, colIndex, header, btn) {
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
-
+ 
   table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
   document.body.appendChild(table);
-
+ 
   const range = document.createRange();
   range.selectNode(table);
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
-
+ 
   try {
     document.execCommand('copy');
     showFeedback(true);
   } catch(e) {
     showFeedback(false);
   }
-
+ 
   sel.removeAllRanges();
   document.body.removeChild(table);
 }
-
+ 
 function copyTable(scaleId, thValId, thIncId, btn) {
   const valHeader = document.getElementById(thValId).textContent.trim();
   const incHeader = document.getElementById(thIncId).textContent.trim();
   const rows = document.querySelectorAll('#tbody-' + scaleId + ' tr');
   const orig = btn.textContent;
-
+ 
   const dataRows = [];
   rows.forEach(row => {
     const cells = Array.from(row.querySelectorAll('td'));
@@ -737,7 +737,7 @@ function copyTable(scaleId, thValId, thIncId, btn) {
       cells[2].textContent.trim()
     ]);
   });
-
+ 
   function showFeedback(success) {
     btn.textContent = success ? 'Copied!' : 'Not supported';
     btn.style.color = success ? '#00783A' : '#636363';
@@ -748,7 +748,7 @@ function copyTable(scaleId, thValId, thIncId, btn) {
       btn.style.borderColor = '#666666';
     }, 2000);
   }
-
+ 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const thRow = document.createElement('tr');
@@ -772,24 +772,24 @@ function copyTable(scaleId, thValId, thIncId, btn) {
   table.appendChild(tbody);
   table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
   document.body.appendChild(table);
-
+ 
   const range = document.createRange();
   range.selectNode(table);
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
-
+ 
   try {
     document.execCommand('copy');
     showFeedback(true);
   } catch(e) {
     showFeedback(false);
   }
-
+ 
   sel.removeAllRanges();
   document.body.removeChild(table);
 }
-
+ 
 function resetDefaults() {
   const map = { grid: DEFAULTS.grid, size: DEFAULTS.size, spac: DEFAULTS.spac };
   for (const [id, def] of Object.entries(map)) {
@@ -809,7 +809,7 @@ function resetDefaults() {
   });
   refreshAll();
 }
-
+ 
 function refreshAll() {
   const steps = getSteps();
   const chartSteps = getChartSteps();
@@ -826,7 +826,7 @@ function refreshAll() {
   const pc = computeScale(pv.S, pv.a, pv.b, pv.c, chartSteps);
   buildChart(gc, sc, pc, chartSteps);
 }
-
+ 
 function showTab(tab, btn) {
   currentTab = tab;
   document.querySelectorAll('.tab-row > div > button:not(.unit-toggle button), .tab-row > button').forEach(b => b.classList.remove('active'));
@@ -835,7 +835,7 @@ function showTab(tab, btn) {
   document.getElementById('annotation-increments').style.display = tab === 'increments' ? 'block' : 'none';
   refreshChart();
 }
-
+ 
 function exportImage(format) {
   const canvas = document.getElementById('mainChart');
   const ec = document.createElement('canvas');
@@ -850,7 +850,7 @@ function exportImage(format) {
   link.href = ec.toDataURL(mime, format === 'jpg' ? 0.95 : 1.0);
   link.click();
 }
-
+ 
 function copyPNG(btn) {
   const canvas = document.getElementById('mainChart');
   const ec = document.createElement('canvas');
@@ -871,15 +871,16 @@ function copyPNG(btn) {
       });
   }, 'image/png');
 }
-
+ 
 refreshAll();
 </script>
-
+ 
 <hr style="border: none; border-top: 0.5px solid #cccccc; margin-top: 64px;">
 <p style="font-size: 0.6875rem; color: #bbbbbb; margin-top: 16px; line-height: 1.7;">
   Generated by Jermold Compton.<br>
   Senior UI and UX Designer, Queensland Government
 </p>
-
+ 
 </body>
 </html>
+ 
