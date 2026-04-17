@@ -2,6 +2,8 @@
 
 A collection of interactive tools used to build, audit, and validate the foundations and assets of the [Queensland Government Design System](https://www.designsystem.qld.gov.au/) (QGDS).
 
+**Preview:** https://jermoldcompton.github.io/QGDS-Tools/QGDS-Scales.html?v=26041701
+
 ---
 
 ## Purpose
@@ -34,8 +36,6 @@ These scales share a stepped exponential structure with calibrated divergence ra
 - Chart export as PNG
 - Scale visibility toggles per chart line
 - Responsive layout for desktop and mobile
-
-**Preview:** https://jermoldcompton.github.io/QGDS-Tools/QGDS-Scales.html?v=26041701
 
 ---
 
