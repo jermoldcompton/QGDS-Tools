@@ -25,8 +25,73 @@ By: Jermold Compton
     color: #333333;
     background: #ffffff;
     padding: 32px;
+    padding-top: 88px;
     max-width: 960px;
     margin: 0 auto;
+  }
+ 
+  /* ── sticky control bar ── */
+  #sticky-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 0.5px solid #d0d0d0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  #sticky-bar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  #sticky-model-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  #sticky-controls-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  #sticky-bar-inner .sticky-label {
+    font-size: 0.6875rem;
+    color: #767676;
+    white-space: nowrap;
+  }
+  #sticky-bar-inner .sticky-divider {
+    width: 0.5px;
+    height: 24px;
+    background: #d0d0d0;
+    flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    body { padding-top: 104px; }
+    #sticky-bar-inner {
+      padding: 8px 20px;
+      height: auto;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    #sticky-bar-inner .sticky-divider { display: none; }
+    #sticky-model-group {
+      width: 100%;
+    }
+    #sticky-model-group select {
+      flex: 1;
+      width: 100%;
+    }
+    #sticky-controls-group {
+      justify-content: flex-start;
+    }
   }
  
   h1 { font-size: 2rem; font-weight: 600; color: #000053; margin-bottom: 0.5em; }
@@ -335,6 +400,43 @@ By: Jermold Compton
 </style>
 </head>
 <body>
+ 
+<div id="sticky-bar" role="toolbar" aria-label="Model and display controls">
+  <div id="sticky-bar-inner">
+    <div id="sticky-model-group">
+      <span class="sticky-label">Model</span>
+      <select id="sticky-model-select" onchange="setFormulaModel(this.value)"
+        style="height:32px; font-size:0.8125rem; font-family:inherit; font-weight:600;
+               border:1.5px solid #005EB8; border-radius:5px; color:#003F7A;
+               background:#ffffff; padding:0 28px 0 10px; cursor:pointer; outline:none;
+               appearance:none; -webkit-appearance:none;
+               background-image:url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23005EB8\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e');
+               background-repeat:no-repeat; background-position:right 8px center; background-size:12px;">
+        <option value="exact">Align (default)</option>
+        <option value="hold">Hold</option>
+        <option value="projection">Index</option>
+      </select>
+    </div>
+    <div class="sticky-divider"></div>
+    <div id="sticky-controls-group">
+      <div class="unit-toggle" id="sticky-unit-toggle">
+        <button class="active" onclick="setUnit('px', this)">px</button>
+        <button onclick="setUnit('rem', this)">rem</button>
+      </div>
+      <span class="sticky-label">Steps</span>
+      <input type="number" id="sticky-steps-input" value="48" min="4" max="200" step="1"
+        style="width:60px; font-size:0.75rem; font-family:'SF Mono','Fira Code',monospace;
+               padding:0 8px; border:0.5px solid #666666; border-radius:5px;
+               color:#333333; background:#ffffff; outline:none; height:32px;"
+        oninput="syncStickySteps(this.value)">
+      <button onclick="resetDefaults()"
+        style="height:32px; padding:0 14px; font-size:0.75rem; font-family:inherit;
+               cursor:pointer; border-radius:6px; border:0.5px solid #666666;
+               background:transparent; color:#636363; transition:all 0.15s; white-space:nowrap;"
+        onmouseover="this.style.background='#EEF4FC'" onmouseout="this.style.background='transparent'">Reset</button>
+    </div>
+  </div>
+</div>
  
 <h1>QGDS Scales</h1>
 <p class="subtitle">QGDS Scales is an interactive reference tool for exploring the relationships between the three core token scales in the Queensland Government Design System: Grid, Size, and Spacing. Across the models in this tool, Grid remains the common denominator. Size and Spacing either inherit from Grid through proportional formulas or are projected directly from Grid so alignment can be tested, visualised and compared.</p>
@@ -870,6 +972,7 @@ function setUnit(unit, btn) {
     b.classList.toggle('active', b.textContent.trim() === unit);
   });
   refreshAll();
+  syncStickyBar();
 }
  
 function setFormulaModel(model) {
@@ -898,6 +1001,7 @@ function setFormulaModel(model) {
   updateModelAnnotations();
   updateTableModelUi();
   refreshAll();
+  syncStickyBar();
 }
  
 function fmt(pxVal) {
@@ -1170,6 +1274,24 @@ function onStrideSteps(val) {
   document.getElementById('steps-input').value = clamped;
   document.getElementById('chart-steps-input').value = clamped;
   refreshAll();
+}
+ 
+function syncStickySteps(val) {
+  const clamped = Math.max(4, Math.min(200, parseInt(val) || 48));
+  document.getElementById('steps-input').value = clamped;
+  document.getElementById('chart-steps-input').value = clamped;
+  document.getElementById('stride-steps-input').value = clamped;
+  refreshAll();
+}
+ 
+function syncStickyBar() {
+  const stickySel = document.getElementById('sticky-model-select');
+  if (stickySel) stickySel.value = currentFormulaModel;
+  const stickySteps = document.getElementById('sticky-steps-input');
+  if (stickySteps) stickySteps.value = document.getElementById('steps-input').value;
+  document.querySelectorAll('#sticky-unit-toggle button').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === currentUnit);
+  });
 }
  
 function getStrideSteps() {
@@ -1613,11 +1735,12 @@ function resetDefaults() {
   });
   updateModelAnnotations();
   refreshAll();
+  syncStickyBar();
 }
  
-window.addEventListener('resize', () => { drawStrideMap(); });
- 
 setFormulaModel('exact');
+syncStickyBar();
+window.addEventListener('resize', () => { drawStrideMap(); });
 </script>
  
 <hr style="border: none; border-top: 0.5px solid #cccccc; margin-top: 64px;">
