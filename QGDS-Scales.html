@@ -146,7 +146,7 @@ By: Jermold Compton
   .ratio-badge.spac  { background: rgba(0,120,58,0.1);  color: #005C2C; }
   .ratio-badge.ratio { background: #F5F5F5; color: #636363; }
  
-  /* ── scale explorer (original) ── */
+  /* ── scale explorer ── */
   .scales-section { margin-top: 32px; padding-top: 24px; border-top: 0.5px solid #cccccc; }
   .section-sub { font-size: 1rem; color: #636363; margin-bottom: 20px; line-height: 1.6; }
  
@@ -173,7 +173,7 @@ By: Jermold Compton
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-top: 24px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
  
   .input-field { display: flex; flex-direction: column; gap: 3px; }
@@ -189,7 +189,48 @@ By: Jermold Compton
     color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
   }
   .input-field input:focus { border-color: #333333; }
+  .input-field select {
+    width: 100%; font-size: 0.75rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    padding: 0 8px; height: 32px; border: 0.5px solid #666666; border-radius: 5px;
+    color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px;
+    padding-right: 24px;
+  }
+  .input-field select:focus { border-color: #333333; }
   .input-field .hint { font-size: 0.625rem; color: #666666; }
+ 
+  /* ── projection variable panel ── */
+  .proj-panel {
+    background: #FAFAFA;
+    border: 0.5px solid #dddddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  .proj-panel-title {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .proj-note {
+    font-size: 0.6875rem;
+    color: #636363;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  .proj-field { display: none; }
  
   .table-scroll {
     max-height: 400px; overflow-y: auto;
@@ -215,11 +256,20 @@ By: Jermold Compton
     text-align: right; border-bottom: 0.5px solid #EEF4FC;
   }
   .scale-table tbody td:first-child { color: #767676; text-align: left; }
-  .scale-table tbody td.changed { color: #9E0029; font-weight: 600; }
+  .scale-table tbody td.changed { color: #005EB8; font-weight: 600; }
+  .grid-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    vertical-align: middle; margin-left: 5px; flex-shrink: 0;
+    background: #e8e8e8;
+  }
+  .grid-dot.off {
+    background: radial-gradient(circle, #CE0037 0%, #CE0037 45%, #e8e8e8 45%, #e8e8e8 100%);
+  }
  
   .table-controls {
     display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
   }
+ 
   .unit-toggle {
     display: flex; align-items: center; border: 0.5px solid #666666; border-radius: 6px; overflow: hidden;
     height: 32px;
@@ -231,15 +281,6 @@ By: Jermold Compton
   }
   .unit-toggle button.active { background: #005EB8; color: #ffffff; font-weight: 500; }
   .unit-toggle button:first-child { border-right: 0.5px solid #666666; }
- 
-  .steps-control { display: flex; align-items: center; gap: 8px; }
-  .steps-control label { font-size: 0.75rem; color: #767676; }
-  .steps-control input {
-    width: 64px; font-size: 0.75rem; font-family: 'SF Mono', 'Fira Code', monospace;
-    padding: 5px 8px; border: 0.5px solid #666666; border-radius: 5px;
-    color: #333333; background: #ffffff; outline: none; transition: border-color 0.1s;
-  }
-  .steps-control input:focus { border-color: #333333; }
  
   .copy-col-row {
     display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: 6px; margin-bottom: 2px; gap: 0;
@@ -260,6 +301,7 @@ By: Jermold Compton
     .col-btn-label { display: none; }
     .input-field input { width: 100%; min-width: 0; }
     .scales-grid { grid-template-columns: 1fr; }
+    #formula-model-select { max-width: 100%; }
   }
  
   .copy-table-btn {
@@ -280,12 +322,22 @@ By: Jermold Compton
     color: #636363; transition: all 0.15s; height: 32px;
   }
   .export-btn:hover { background: #EEF4FC; }
+ 
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .model-grid { grid-template-columns: 1fr; }
+  }
+ 
 </style>
 </head>
 <body>
  
 <h1>QGDS Scales</h1>
-<p class="subtitle">QGDS Scales is an interactive reference tool for exploring the relationships between the three core token scales in the Queensland Government Design System: Grid, Size, and Spacing. The scales share a common mathematical structure designed so that every Size and Spacing value is guaranteed to be a Grid value, by design, not by coincidence.</p>
+<p class="subtitle">QGDS Scales is an interactive reference tool for exploring the relationships between the three core token scales in the Queensland Government Design System: Grid, Size, and Spacing. Across the models in this tool, Grid remains the common denominator. Size and Spacing either inherit from Grid through proportional formulas or are projected directly from Grid so alignment can be tested, visualised and compared.</p>
  
 <h2>Scale relationship</h2>
  
@@ -325,7 +377,7 @@ By: Jermold Compton
 </div>
  
 <div class="chart-wrap">
-  <canvas id="mainChart" role="img" aria-label="Line chart comparing Grid, Size and Spacing scale values across steps">Grid is the common reference: every Size value lands on every second Grid tick, every Spacing value on every fourth.</canvas>
+  <canvas id="mainChart" role="img" aria-label="Line chart comparing Grid, Size and Spacing scale values across steps. Depending on the selected model, Size and Spacing either follow proportional formula families or are projected directly from Grid.">Grid is the common reference across all three models.</canvas>
 </div>
  
 <div class="export-row" style="margin-top: 12px; margin-bottom: 32px; padding-top: 0; border-top: none;">
@@ -373,7 +425,7 @@ By: Jermold Compton
  
 <div class="stride-section">
   <h2>Scale structure</h2>
-  <p class="stride-section section-sub">Size and Spacing are anchored to Grid: every Size step lands on every second Grid tick, every Spacing step on every fourth. The stride map makes this visible, with each dot representing a step in that scale, placed at the Grid tick it shares a value with. A connecting line is drawn to confirm the match. Drag the slider to inspect any step and read the exact Grid value for each scale.</p>
+  <p class="stride-section section-sub">Size and Spacing are anchored to Grid in every model shown here. In the Align and Hold models they follow proportional formula families. In the Index model they select curated low-end Grid values first, then widen by stepping through Grid more aggressively over time. The stride map makes those relationships visible, with each dot placed at the Grid value it shares. Drag the slider to inspect any step and read the exact Grid value for each scale.</p>
  
   <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:32px; flex-wrap:wrap; row-gap:8px;">
     <div style="display:flex; align-items:center; gap:8px;">
@@ -443,20 +495,67 @@ By: Jermold Compton
  
  
 <!-- ═══════════════════════════════════════════════════════════
-     SCALE EXPLORER (original)
+     SCALE EXPLORER
      ═══════════════════════════════════════════════════════════ -->
  
 <div class="scales-section">
   <h2>Scale explorer</h2>
-  <p class="section-sub">Each scale follows the formula, where the starting step size, growth factor, and doubling interval can be adjusted independently. The default values are chosen so that every Size and Spacing value is also a Grid value, a relationship that holds only when each scale's starting step size and doubling frequency are both set to the same multiple of Grid's. Use the explorer to audit token values, test how parameter changes affect alignment, export reference data for spreadsheets, or communicate the underlying structure of the system to stakeholders and engineers.</p>
-  <p class="section-sub">
-    Formula:<br>
-    <span style="font-family:'SF Mono','Fira Code',monospace; font-size:1.25rem; font-weight:600; color:#333333;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</span><br><br>
-    where:<br>
-    S = start value, a = base increment, b = growth factor, c = interval.<br>
-    Values highlighted in red have changed from defaults.
-  </p>
+  <p class="section-sub">Adjust the active model and its variables to see the effect in real time. Use the explorer to audit token values, test how parameter changes affect alignment, compare formula families against direct Grid projection, export reference data for spreadsheets, or communicate the underlying structure of the system to stakeholders and engineers.</p>
+  <div style="margin-bottom: 24px;">
+    
+    <div style="margin: 40px 0 32px 0; padding: 24px; background: #EEF4FC; border-radius: 8px; border: 1px solid #cce0f5; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <h3 style="font-size: 1.25rem; font-weight: 600; color: #003F7A; margin: 0 0 6px 0;">Active model configuration</h3>
+        <span style="font-size: 0.8125rem; color: #444444;">Select the mathematical approach used to generate the scales.</span>
+      </div>
+      <div class="input-field" style="flex: 1; min-width: 240px; max-width: 360px; margin: 0; margin-left: auto; width: 100%;">
+        <select id="formula-model-select" onchange="setFormulaModel(this.value)" style="height: 44px; font-size: 0.9375rem; font-family: inherit; border: 2px solid #005EB8; color: #003F7A; font-weight: 600; box-shadow: 0 4px 12px rgba(0, 94, 184, 0.1); background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23005EB8\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e'); background-position: right 12px center; width: 100%;">
+          <option value="exact">Align (default)</option>
+          <option value="hold">Hold</option>
+          <option value="projection">Index</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="formula-display-exact" class="meta-card" style="margin-top: 16px;">
+      <div class="label">Current default</div>
+      <div class="scale-name" style="color: #003F7A; margin-bottom: 8px;">Exact alignment model</div>
+      <p style="font-size: 0.8125rem; color: #636363; line-height: 1.6; margin-bottom: 16px;">Every Size and Spacing value is guaranteed to be a Grid value. Size lands on every second Grid tick, Spacing on every fourth. This makes token inheritance simple and predictable: any Size or Spacing token can reference a Grid token directly with no arithmetic.</p>
+      <div style="font-family: 'SF Mono','Fira Code',monospace; font-size: 0.875rem; font-weight: 600; color: #333333; margin-bottom: 8px;">Sₙ = Sₙ₋₁ + a × b^⌊(n−1)/c⌋</div>
+      <p style="font-size: 0.75rem; color: #636363; line-height: 1.6; margin-bottom: 12px;">S = start value, a = base increment, b = growth factor, c = interval.<br>Values highlighted in blue have changed from defaults.</p>
+      <ul style="font-size: 0.8125rem; color: #636363; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
+        <li style="margin-bottom: 4px;">Best when strict Grid alignment and predictable token relationships are the priority.</li>
+        <li style="margin-bottom: 4px;">Grid already produces the dense base sequence that Size and Spacing reference.</li>
+        <li>Size and Spacing are tuned by adjusting <strong>a</strong> and <strong>c</strong> within the same proportional family.</li>
+      </ul>
+    </div>
  
+    <div id="formula-display-hold" class="meta-card" style="display:none; margin-top: 16px;">
+      <div class="label">Optional extension</div>
+      <div class="scale-name" style="color: #005C2C; margin-bottom: 8px;">Hold model</div>
+      <p style="font-size: 0.8125rem; color: #636363; line-height: 1.6; margin-bottom: 16px;">Adding a hold period using <strong>h</strong> keeps each scale at its starting step size for a set number of steps before growth begins. This lets Size and Spacing share the low-end 2px run long enough to include values such as 2, 4, 8, 12, 16, 20 and 24, then diverge at their own rates.</p>
+      <div style="font-family: 'SF Mono','Fira Code',monospace; font-size: 0.875rem; font-weight: 600; color: #333333; margin-bottom: 8px;">Sₙ = Sₙ₋₁ + a × b^max(0, ⌊(n−1−h)/c⌋)</div>
+      <p style="font-size: 0.75rem; color: #636363; line-height: 1.6; margin-bottom: 12px;">S = start value, a = base increment, b = growth factor, c = interval, h = hold steps.<br>If h = 0 for all 3 scales, the Hold model produces the same results as the Align model. Values highlighted in blue have changed from defaults.</p>
+      <ul style="font-size: 0.8125rem; color: #636363; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
+        <li style="margin-bottom: 4px;"><strong>h</strong> holds the base increment at the low end before growth kicks in.</li>
+        <li style="margin-bottom: 4px;"><strong>c</strong> still controls how quickly each scale grows after the hold ends.</li>
+        <li>Keeps the system coherent while adding flexibility at the compact end of each scale.</li>
+      </ul>
+    </div>
+ 
+    <div id="formula-display-projection" class="meta-card" style="display:none; margin-top: 16px;">
+      <div class="label">Indexing alternative</div>
+      <div class="scale-name" style="color: #9E0029; margin-bottom: 8px;">Grid-index projection model</div>
+      <p style="font-size: 0.8125rem; color: #636363; line-height: 1.6; margin-bottom: 16px;">Grid is generated first. Size and Spacing then select values from Grid using curated low-end presets plus widening Grid-index strides. This keeps the desired micro values at the compact end while ensuring that every Size and Spacing value is still a Grid value by construction.</p>
+      <div style="font-family: 'SF Mono','Fira Code',monospace; font-size: 0.875rem; font-weight: 600; color: #333333; margin-bottom: 8px;">Gₙ = Gₙ₋₁ + a × b^⌊(n−1)/c⌋ &nbsp;&nbsp;·&nbsp;&nbsp; Sizeₙ = G_{φₛ(n)} &nbsp;&nbsp;·&nbsp;&nbsp; Spacingₙ = G_{φₚ(n)}</div>
+      <p style="font-size: 0.75rem; color: #636363; line-height: 1.6; margin-bottom: 12px;">G = Grid value, a = base increment, b = growth factor, c = interval, φₛ(n) = Size grid index, φₚ(n) = Spacing grid index.<br>Grid still uses S, a, b and c. Size and Spacing use curated Grid-index presets at the low end, then advance through Grid using widening index strides. Variable panels will adjust automatically.</p>
+      <ul style="font-size: 0.8125rem; color: #636363; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
+        <li style="margin-bottom: 4px;">Preserves exact alignment because Size and Spacing are sampled directly from Grid.</li>
+        <li style="margin-bottom: 4px;">Supports curated, hand-picked low-end preset arrays for Spacing and Size.</li>
+        <li>Uses widening Grid-index strides after the preset range so Spacing can diverge earlier and faster than Size.</li>
+      </ul>
+    </div>
+  </div>
   <div style="border-top: 0.5px solid #cccccc; margin-bottom: 24px;"></div>
  
   <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:24px; flex-wrap:wrap; row-gap:12px;">
@@ -485,33 +584,40 @@ By: Jermold Compton
  
   <div class="scales-grid">
  
+    <!-- Grid Column -->
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#9E0029;">Grid</h3>
         <span class="live-formula" id="lf-grid"></span>
       </div>
       <div class="inputs-grid">
-        <div class="input-field">
+        <div class="input-field core-field grid-core-field">
           <label>S</label>
           <input type="number" id="grid-S" value="0" step="1" oninput="refreshAll()">
           <span class="hint">start value</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field grid-core-field">
           <label>a</label>
           <input type="number" id="grid-a" value="2" min="1" step="1" oninput="refreshAll()">
           <span class="hint">base increment</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field grid-core-field">
           <label>b</label>
           <input type="number" id="grid-b" value="2" min="1" step="1" oninput="refreshAll()">
           <span class="hint">growth factor</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field grid-core-field">
           <label>c</label>
           <input type="number" id="grid-c" value="32" min="1" step="1" oninput="refreshAll()">
           <span class="hint">interval</span>
         </div>
+        <div class="input-field h-field grid-h-field" style="grid-column: 1 / -1; display:none;">
+          <label>h</label>
+          <input type="number" id="grid-h" value="0" min="0" step="1" oninput="refreshAll()">
+          <span class="hint">hold steps</span>
+        </div>
       </div>
+      
       <div class="table-scroll">
         <table class="scale-table">
           <thead><tr><th>n</th><th id="th-val-grid">value (px)</th><th id="th-inc-grid">inc (px)</th></tr></thead>
@@ -535,33 +641,70 @@ By: Jermold Compton
       <button class="copy-table-btn" onclick="copyTable('grid', 'th-val-grid', 'th-inc-grid', this)">Copy table</button>
     </div>
  
+    <!-- Size Column -->
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#003F7A;">Size</h3>
         <span class="live-formula" id="lf-size"></span>
       </div>
-      <div class="inputs-grid">
-        <div class="input-field">
+      
+      <!-- Standard Variables -->
+      <div class="inputs-grid size-core-field">
+        <div class="input-field core-field">
           <label>S</label>
           <input type="number" id="size-S" value="0" step="1" oninput="refreshAll()">
           <span class="hint">start value</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>a</label>
           <input type="number" id="size-a" value="4" min="1" step="1" oninput="refreshAll()">
           <span class="hint">base increment</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>b</label>
           <input type="number" id="size-b" value="2" min="1" step="1" oninput="refreshAll()">
           <span class="hint">growth factor</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>c</label>
           <input type="number" id="size-c" value="16" min="1" step="1" oninput="refreshAll()">
           <span class="hint">interval</span>
         </div>
+        <div class="input-field h-field size-h-field" style="grid-column: 1 / -1; display:none;">
+          <label>h</label>
+          <input type="number" id="size-h" value="0" min="0" step="1" oninput="refreshAll()">
+          <span class="hint">hold steps</span>
+        </div>
       </div>
+ 
+      <!-- Projection Variables Panel (Revealed dynamically) -->
+      <div class="proj-field proj-panel">
+        <div class="proj-panel-title">Projection Variables</div>
+        <div class="input-field" style="margin-bottom: 12px;">
+          <label>pᵢ</label>
+          <input type="text" id="size-proj-preset" value="0, 1, 2, 4, 6, 8, 10, 12" oninput="refreshAll()">
+          <span class="hint">curated preset (comma-separated grid indices)</span>
+        </div>
+        <div class="proj-note" style="margin-bottom: 8px;">After preset, advances via widening index strides:</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <div class="input-field">
+            <label>sᵢ</label>
+            <input type="number" id="size-proj-step" value="2" min="1" step="1" oninput="refreshAll()">
+            <span class="hint">stride</span>
+          </div>
+          <div class="input-field">
+            <label>cᵢ</label>
+            <input type="number" id="size-proj-c" value="6" min="1" step="1" oninput="refreshAll()">
+            <span class="hint">interval</span>
+          </div>
+          <div class="input-field">
+            <label>hᵢ</label>
+            <input type="number" id="size-proj-h" value="0" min="0" step="1" oninput="refreshAll()">
+            <span class="hint">hold</span>
+          </div>
+        </div>
+      </div>
+ 
       <div class="table-scroll">
         <table class="scale-table">
           <thead><tr><th>n</th><th id="th-val-size">value (px)</th><th id="th-inc-size">inc (px)</th></tr></thead>
@@ -585,33 +728,70 @@ By: Jermold Compton
       <button class="copy-table-btn" onclick="copyTable('size', 'th-val-size', 'th-inc-size', this)">Copy table</button>
     </div>
  
+    <!-- Spacing Column -->
     <div class="scale-block">
       <div class="scale-title-row">
         <h3 class="scale-title" style="color:#005C2C;">Spacing</h3>
         <span class="live-formula" id="lf-spac"></span>
       </div>
-      <div class="inputs-grid">
-        <div class="input-field">
+ 
+      <!-- Standard Variables -->
+      <div class="inputs-grid spac-core-field">
+        <div class="input-field core-field">
           <label>S</label>
           <input type="number" id="spac-S" value="0" step="1" oninput="refreshAll()">
           <span class="hint">start value</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>a</label>
           <input type="number" id="spac-a" value="8" min="1" step="1" oninput="refreshAll()">
           <span class="hint">base increment</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>b</label>
           <input type="number" id="spac-b" value="2" min="1" step="1" oninput="refreshAll()">
           <span class="hint">growth factor</span>
         </div>
-        <div class="input-field">
+        <div class="input-field core-field">
           <label>c</label>
           <input type="number" id="spac-c" value="8" min="1" step="1" oninput="refreshAll()">
           <span class="hint">interval</span>
         </div>
+        <div class="input-field h-field spac-h-field" style="grid-column: 1 / -1; display:none;">
+          <label>h</label>
+          <input type="number" id="spac-h" value="0" min="0" step="1" oninput="refreshAll()">
+          <span class="hint">hold steps</span>
+        </div>
       </div>
+ 
+      <!-- Projection Variables Panel (Revealed dynamically) -->
+      <div class="proj-field proj-panel">
+        <div class="proj-panel-title">Projection Variables</div>
+        <div class="input-field" style="margin-bottom: 12px;">
+          <label>pᵢ</label>
+          <input type="text" id="spac-proj-preset" value="0, 2, 4, 6, 8, 10, 12" oninput="refreshAll()">
+          <span class="hint">curated preset (comma-separated grid indices)</span>
+        </div>
+        <div class="proj-note" style="margin-bottom: 8px;">After preset, advances via widening index strides:</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+          <div class="input-field">
+            <label>sᵢ</label>
+            <input type="number" id="spac-proj-step" value="4" min="1" step="1" oninput="refreshAll()">
+            <span class="hint">stride</span>
+          </div>
+          <div class="input-field">
+            <label>cᵢ</label>
+            <input type="number" id="spac-proj-c" value="4" min="1" step="1" oninput="refreshAll()">
+            <span class="hint">interval</span>
+          </div>
+          <div class="input-field">
+            <label>hᵢ</label>
+            <input type="number" id="spac-proj-h" value="0" min="0" step="1" oninput="refreshAll()">
+            <span class="hint">hold</span>
+          </div>
+        </div>
+      </div>
+ 
       <div class="table-scroll">
         <table class="scale-table">
           <thead><tr><th>n</th><th id="th-val-spac">value (px)</th><th id="th-inc-spac">inc (px)</th></tr></thead>
@@ -628,7 +808,7 @@ By: Jermold Compton
           <span class="col-btn-label">value</span>
         </button>
         <button class="copy-col-btn" style="margin-left:6px;" onclick="copyColumn('spac', 2, document.getElementById('th-inc-spac').textContent, this)" title="Copy inc column">
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 111H5" stroke="currentColor" stroke-width="1.5"/></svg>
           <span class="col-btn-label">inc</span>
         </button>
       </div>
@@ -640,25 +820,30 @@ By: Jermold Compton
   <p style="font-size: 0.6875rem; color: #767676; margin-top: 12px; line-height: 1.7;">
     <strong style="font-weight: 500; color: #636363;">n</strong> = step number &nbsp;&nbsp;
     <strong style="font-weight: 500; color: #636363;">value</strong> = cumulative scale value at step n &nbsp;&nbsp;
-    <strong style="font-weight: 500; color: #636363;">inc</strong> = increment added at step n
+    <span id="inc-footnote"><strong style="font-weight: 500; color: #636363;">inc</strong> = increment added at step n</span>&nbsp;&nbsp;
+    <span id="grid-index-footnote" style="display:none;"><strong style="font-weight: 500; color: #636363;">grid i</strong> = Grid step index selected by the projection model</span>&nbsp;&nbsp;
+    <span class="h-field" style="display:none;"><strong style="font-weight: 500; color: #636363;">h</strong> = number of steps held at the base increment before growth begins</span>
   </p>
  
 </div>
  
 <script>
-/* ─────────────────────────────────────────────
-   ORIGINAL SCALE LOGIC (preserved exactly)
-───────────────────────────────────────────── */
 const RED = '#CE0037', PURPLE = '#005EB8', TEAL = '#00783A';
 const REM_BASE = 16;
  
 const DEFAULTS = {
-  grid: { S: 0, a: 2, b: 2, c: 32 },
-  size: { S: 0, a: 4, b: 2, c: 16 },
-  spac: { S: 0, a: 8, b: 2, c: 8  }
+  grid: { S: 0, a: 2, b: 2, c: 32, h: 0 },
+  size: { S: 0, a: 4, b: 2, c: 16, h: 0 },
+  spac: { S: 0, a: 8, b: 2, c: 8,  h: 0 }
+};
+ 
+const PROJECTION_DEFAULTS = {
+  size: { preset: '0, 1, 2, 4, 6, 8, 10, 12', step: 2, c: 6, h: 0 },
+  spac: { preset: '0, 2, 4, 6, 8, 10, 12', step: 4, c: 4, h: 0 }
 };
  
 let currentUnit = 'px';
+let currentFormulaModel = 'exact';
  
 function updateTableHeight(val) {
   const h = Math.max(100, Math.min(2000, parseInt(val) || 400));
@@ -675,11 +860,8 @@ function getChartSteps() {
  
 function refreshChart() {
   const chartSteps = getChartSteps();
-  const gv = getVars('grid'), sv = getVars('size'), pv = getVars('spac');
-  const g = computeScale(gv.S, gv.a, gv.b, gv.c, chartSteps);
-  const s = computeScale(sv.S, sv.a, sv.b, sv.c, chartSteps);
-  const p = computeScale(pv.S, pv.a, pv.b, pv.c, chartSteps);
-  buildChart(g, s, p, chartSteps);
+  const { gShort, sScale, pScale } = computeActiveScales(chartSteps);
+  buildChart(gShort, sScale, pScale, chartSteps);
 }
  
 function setUnit(unit, btn) {
@@ -687,6 +869,34 @@ function setUnit(unit, btn) {
   document.querySelectorAll('.unit-toggle button').forEach(b => {
     b.classList.toggle('active', b.textContent.trim() === unit);
   });
+  refreshAll();
+}
+ 
+function setFormulaModel(model) {
+  currentFormulaModel = model;
+  const selectEl = document.getElementById('formula-model-select');
+  if (selectEl && selectEl.value !== model) selectEl.value = model;
+ 
+  document.getElementById('formula-display-exact').style.display = model === 'exact' ? 'block' : 'none';
+  document.getElementById('formula-display-hold').style.display  = model === 'hold'  ? 'block' : 'none';
+  document.getElementById('formula-display-projection').style.display = model === 'projection' ? 'block' : 'none';
+ 
+  const showH = model === 'hold';
+  const showProj = model === 'projection';
+ 
+  document.querySelectorAll('.h-field').forEach(el => el.style.display = showH ? '' : 'none');
+  document.querySelectorAll('.proj-field').forEach(el => el.style.display = showProj ? 'block' : 'none');
+ 
+  document.querySelectorAll('.size-core-field, .spac-core-field').forEach(el => {
+    el.style.display = showProj ? 'none' : 'grid';
+  });
+ 
+  if (!showH) {
+    ['grid-h', 'size-h', 'spac-h'].forEach(id => { document.getElementById(id).value = 0; });
+  }
+ 
+  updateModelAnnotations();
+  updateTableModelUi();
   refreshAll();
 }
  
@@ -700,25 +910,125 @@ function getVars(id) {
     S: parseFloat(document.getElementById(id+'-S').value) || 0,
     a: parseFloat(document.getElementById(id+'-a').value) || 1,
     b: parseFloat(document.getElementById(id+'-b').value) || 1,
-    c: Math.max(1, parseFloat(document.getElementById(id+'-c').value) || 1)
+    c: Math.max(1, parseFloat(document.getElementById(id+'-c').value) || 1),
+    h: Math.max(0, parseInt(document.getElementById(id+'-h').value) || 0)
   };
 }
  
-function computeScale(S, a, b, c, steps) {
+function getProjectionVars(id) {
+  const presetStr = document.getElementById(id+'-proj-preset').value;
+  let preset = presetStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+  if (preset.length === 0) preset = [0];
+  return {
+    preset: preset,
+    step: Math.max(1, parseInt(document.getElementById(id+'-proj-step').value) || 1),
+    c: Math.max(1, parseInt(document.getElementById(id+'-proj-c').value) || 1),
+    h: Math.max(0, parseInt(document.getElementById(id+'-proj-h').value) || 0)
+  };
+}
+ 
+function projectScaleIndices(kind, steps, projVars) {
+  const preset = projVars.preset;
+  const indices = [];
+  for (let n = 0; n <= steps; n++) {
+    if (n < preset.length) {
+      indices.push(preset[n]);
+    } else {
+      const tailStep = n - preset.length + 1;
+      const stride = projVars.step * Math.pow(2, Math.max(0, Math.floor((tailStep - 1 - projVars.h) / projVars.c)));
+      indices.push(indices[indices.length - 1] + stride);
+    }
+  }
+  return indices;
+}
+ 
+function buildProjectedScale(kind, steps, gridFull, projVars) {
+  const indices = projectScaleIndices(kind, steps, projVars);
+  const vals = indices.map(i => gridFull.vals[Math.min(i, gridFull.vals.length - 1)]);
+  const incs = [];
+  for (let i = 1; i < vals.length; i++) incs.push(vals[i] - vals[i - 1]);
+  return { vals, incs, indices };
+}
+ 
+function computeProjectionHeadroom(steps, sizeProjVars, spacProjVars) {
+  const sizeIdx = projectScaleIndices('size', steps, sizeProjVars);
+  const spacIdx = projectScaleIndices('spac', steps, spacProjVars);
+  const headroom = Math.max(steps, sizeIdx[sizeIdx.length - 1], spacIdx[spacIdx.length - 1]);
+  return Math.min(headroom, 8000);
+}
+ 
+function computeActiveScales(steps) {
+  const gv = getVars('grid'), sv = getVars('size'), pv = getVars('spac');
+  if (currentFormulaModel === 'projection') {
+    const sizeProj = getProjectionVars('size');
+    const spacProj = getProjectionVars('spac');
+    const headroom = computeProjectionHeadroom(steps, sizeProj, spacProj);
+    const gFull = computeScale(gv.S, gv.a, gv.b, gv.c, headroom, 0);
+    const gShort = { vals: gFull.vals.slice(0, steps + 1), incs: gFull.incs.slice(0, steps) };
+    const sScale = buildProjectedScale('size', steps, gFull, sizeProj);
+    const pScale = buildProjectedScale('spac', steps, gFull, spacProj);
+    return { gv, sv, pv, gFull, gShort, sScale, pScale };
+  }
+  const gridHeadroom = Math.min(Math.max(steps * 6, steps), 4000);
+  const gFull = computeScale(gv.S, gv.a, gv.b, gv.c, gridHeadroom, gv.h);
+  const gShort = { vals: gFull.vals.slice(0, steps + 1), incs: gFull.incs.slice(0, steps) };
+  const sScale = computeScale(sv.S, sv.a, sv.b, sv.c, steps, sv.h);
+  const pScale = computeScale(pv.S, pv.a, pv.b, pv.c, steps, pv.h);
+  return { gv, sv, pv, gFull, gShort, sScale, pScale };
+}
+ 
+function updateModelAnnotations() {
+  const cumulative = document.getElementById('annotation-cumulative');
+  const increments = document.getElementById('annotation-increments');
+  if (currentFormulaModel === 'projection') {
+    cumulative.innerHTML = 'Grid remains the common denominator. In the Index model, Size and Spacing take curated low-end values directly from Grid, then continue by advancing through Grid with widening index strides. Alignment is guaranteed because every value is selected from Grid rather than generated independently.';
+    increments.innerHTML = 'The micro range is curated first, then each scale widens by increasing how many Grid steps it skips. Size widens later and more gradually. Spacing widens earlier and more aggressively. This keeps the low-end values familiar while making larger ranges separate more decisively.';
+  } else if (currentFormulaModel === 'hold') {
+    cumulative.innerHTML = 'All three scales start with the same step size for the first <strong>h</strong> steps before each one grows at its own rate. This shared low end makes it possible to include fine-grained values such as 2, 4, 8 and 12px across all three scales before Size and Spacing widen. Every value still lands on the Grid.';
+    increments.innerHTML = 'Each scale holds its base increment flat for <strong>h</strong> steps, then doubles at interval <strong>c</strong>. Increasing <strong>h</strong> extends the shared flat section; adjusting <strong>c</strong> controls how fast each scale grows after the hold ends. The <strong>4 : 2 : 1</strong> interval ratio still determines the relative speed of divergence once growth begins.';
+  } else {
+    cumulative.innerHTML = 'Every Size and Spacing value is a Grid value. Size starts with steps twice as large as Grid (4px vs 2px) and doubles at half the rate, so each Size step lands on every second Grid tick. Spacing starts with steps four times as large as Grid (8px vs 2px) and doubles four times as fast, so each Spacing step lands on every fourth Grid tick.';
+    increments.innerHTML = 'Each scale adds the same amount per step, then doubles that amount at a set interval: every 32 steps for Grid, every 16 for Size, every 8 for Spacing. That <strong>4 : 2 : 1</strong> ratio is not arbitrary: it is what keeps Size and Spacing locked to Grid. When each scale\'s starting step size and doubling frequency are both set to the same multiple of Grid\'s, every value they produce is guaranteed to be a Grid value.';
+  }
+}
+ 
+function getTableMode(tableId) {
+  if (currentFormulaModel === 'projection' && (tableId === 'size' || tableId === 'spac')) return 'projection';
+  return currentFormulaModel === 'hold' ? 'hold' : 'exact';
+}
+ 
+function updateTableModelUi() {
+  const projection = currentFormulaModel === 'projection';
+  [['grid', false], ['size', projection], ['spac', projection]].forEach(([id, isProjectionTable]) => {
+    const valTh = document.getElementById('th-val-' + id);
+    const incTh = document.getElementById('th-inc-' + id);
+    if (!valTh || !incTh) return;
+    valTh.textContent = `value (${currentUnit})`;
+    incTh.textContent = isProjectionTable ? 'grid i' : `inc (${currentUnit})`;
+  });
+  document.getElementById('inc-footnote').style.display = projection ? 'none' : '';
+  document.getElementById('grid-index-footnote').style.display = projection ? '' : 'none';
+}
+ 
+function computeScale(S, a, b, c, steps, h = 0) {
   const vals = [S], incs = [];
   for (let n = 1; n <= steps; n++) {
-    const inc = a * Math.pow(b, Math.floor((n - 1) / c));
+    const inc = a * Math.pow(b, Math.max(0, Math.floor((n - 1 - h) / c)));
     incs.push(inc);
     vals.push(vals[vals.length - 1] + inc);
   }
   return { vals, incs };
 }
  
-function renderTable(tbodyId, tableId, scale, def, vars, steps) {
+function renderTable(tbodyId, tableId, scale, def, vars, steps, gridSet = null, defScaleOverride = null) {
   const unit = currentUnit;
-  document.getElementById('th-val-' + tableId).textContent = `value (${unit})`;
-  document.getElementById('th-inc-' + tableId).textContent = `inc (${unit})`;
-  const defScale = computeScale(def.S, def.a, def.b, def.c, steps);
+  const mode = getTableMode(tableId);
+  const valueHeader = document.getElementById('th-val-' + tableId);
+  const thirdHeader = document.getElementById('th-inc-' + tableId);
+  valueHeader.textContent = `value (${unit})`;
+  thirdHeader.textContent = mode === 'projection' ? 'grid i' : `inc (${unit})`;
+ 
+  const defScale = defScaleOverride || computeScale(def.S, def.a, def.b, def.c, steps, def.h || 0);
   let html = '';
   for (let n = 0; n <= steps; n++) {
     const v = scale.vals[n];
@@ -727,17 +1037,36 @@ function renderTable(tbodyId, tableId, scale, def, vars, steps) {
     const defInc = n === 0 ? null : defScale.incs[n - 1];
     const valChanged = Math.round(v * 10000) !== Math.round(defV * 10000);
     const incChanged = inc !== null && Math.round(inc * 10000) !== Math.round(defInc * 10000);
-    const incDisplay = n === 0 ? '—' : fmt(inc);
-    html += `<tr><td>${n}</td><td class="${valChanged ? 'changed' : ''}">${fmt(v)}</td><td class="${incChanged ? 'changed' : ''}">${incDisplay}</td></tr>`;
+    let thirdDisplay = n === 0 ? '—' : fmt(inc);
+    if (mode === 'projection' && scale.indices) {
+      thirdDisplay = scale.indices[n];
+    }
+    let dot = '';
+    if (gridSet !== null) {
+      const onGrid = gridSet.has(Math.round(v * 1000));
+      dot = `<span class="grid-dot ${onGrid ? 'on' : 'off'}" title="${onGrid ? 'On Grid' : 'Not on Grid'}"></span>`;
+    }
+    html += `<tr><td>${n}</td><td class="${valChanged ? 'changed' : ''}" style="white-space:nowrap;">${fmt(v)}${dot}</td><td class="${mode === 'projection' ? '' : (incChanged ? 'changed' : '')}">${thirdDisplay}</td></tr>`;
   }
   document.getElementById(tbodyId).innerHTML = html;
 }
  
 function updateMeta(id, vars) {
+  if (currentFormulaModel === 'projection' && (id === 'size' || id === 'spac')) {
+    const proj = getProjectionVars(id);
+    const presetLabel = `preset [${proj.preset.join(', ')}]`;
+    document.getElementById('meta-' + id).textContent =
+      `${presetLabel}, sᵢ=${proj.step}, cᵢ=${proj.c}${proj.h > 0 ? `, hᵢ=${proj.h}` : ''}`;
+    document.getElementById('lf-' + id).textContent =
+      id === 'size' ? `G_{φₛ(n)}` : `G_{φₚ(n)}`;
+    return;
+  }
+  const hPart = vars.h > 0 ? `, h=${vars.h}` : '';
   document.getElementById('meta-' + id).textContent =
-    `S=${vars.S}, a=${vars.a}, b=${vars.b}, c=${vars.c}`;
-  document.getElementById('lf-' + id).textContent =
-    `${vars.a} × ${vars.b}^⌊(n−1)/${vars.c}⌋`;
+    `S=${vars.S}, a=${vars.a}, b=${vars.b}, c=${vars.c}${hPart}`;
+  document.getElementById('lf-' + id).textContent = vars.h > 0
+    ? `${vars.a} × ${vars.b}^max(0,⌊(n−1−${vars.h})/${vars.c}⌋)`
+    : `${vars.a} × ${vars.b}^⌊(n−1)/${vars.c}⌋`;
 }
  
 let currentTab = 'cumulative';
@@ -808,9 +1137,7 @@ function buildChart(g, s, p, steps) {
   });
 }
  
-/* ─────────────────────────────────────────────
-   STRIDE MAP
-───────────────────────────────────────────── */
+/* ── STRIDE MAP ── */
 let strideN = 4;
 let strideUnit = 'px';
  
@@ -856,7 +1183,7 @@ function getStrideDots() {
 function drawStrideMap() {
   const canvas = document.getElementById('stride-canvas');
   const container = canvas.parentElement;
-  const CW = container.clientWidth - 40; // padding 20px each side
+  const CW = container.clientWidth - 40;
   const CH = 200;
   const dpr = window.devicePixelRatio || 1;
   canvas.width = CW * dpr;
@@ -868,15 +1195,13 @@ function drawStrideMap() {
  
   const gv = getVars('grid'), sv = getVars('size'), pv = getVars('spac');
  
-  // ── 1. Dot count drives everything ──────────────────────────────────────
   const strideDots = getStrideDots();
   const maxSteps = Math.min(getSteps(), Math.max(48, strideDots));
-  const gridLookupSteps = maxSteps * 6; // generous headroom for Spacing's fast growth
-  const gFull = computeScale(gv.S, gv.a, gv.b, gv.c, gridLookupSteps);
-  const sScale = computeScale(sv.S, sv.a, sv.b, sv.c, maxSteps);
-  const pScale = computeScale(pv.S, pv.a, pv.b, pv.c, maxSteps);
+  const active = computeActiveScales(maxSteps);
+  const gFull = active.gFull;
+  const sScale = active.sScale;
+  const pScale = active.pScale;
  
-  // ── 2. Build Grid value → step index map ────────────────────────────────
   const gridMap = new Map();
   gFull.vals.forEach((v, i) => { gridMap.set(Math.round(v * 100), i); });
  
@@ -884,7 +1209,6 @@ function drawStrideMap() {
     return gridMap.get(Math.round(scaleVal * 100)) ?? null;
   }
  
-  // ── 3. Clamp sliderMax and sync the step slider ──────────────────────────
   const slider = document.getElementById('stride-slider');
   const sliderMax = Math.max(2, Math.min(maxSteps, strideDots));
   if (parseInt(slider.max) !== sliderMax) {
@@ -892,29 +1216,23 @@ function drawStrideMap() {
     if (strideN > sliderMax) { strideN = Math.floor(sliderMax / 2); slider.value = strideN; document.getElementById('stride-n-badge').textContent = strideN; }
   }
  
-  // ── 4. Derive RULER_STEPS from the furthest Grid step any dot lands on ──
-  let maxGridStep = 16; // minimum so the ruler is never degenerate
+  let maxGridStep = 16;
   for (let n = 0; n <= sliderMax; n++) {
     const sGI = gridStepFor(sScale.vals[n]);
     const pGI = gridStepFor(pScale.vals[n]);
     if (sGI != null) maxGridStep = Math.max(maxGridStep, sGI);
     if (pGI != null) maxGridStep = Math.max(maxGridStep, pGI);
   }
-  // Add a 5% right-side buffer so the last dot doesn't sit at the canvas edge
-  const RULER_STEPS = Math.min(gridLookupSteps, Math.ceil(maxGridStep * 1.05) + 1);
-  const gRuler = computeScale(gv.S, gv.a, gv.b, gv.c, RULER_STEPS);
+  const RULER_STEPS = Math.min(gFull.vals.length - 1, Math.ceil(maxGridStep * 1.05) + 1);
+  const gRuler = { vals: gFull.vals.slice(0, RULER_STEPS + 1), incs: gFull.incs.slice(0, RULER_STEPS) };
  
-  // ── 5. Layout — gx() is now proportional to dynamic RULER_STEPS ─────────
   const LW = 24, RW = CW - LW - 8;
   const gx = n => LW + (n / RULER_STEPS) * RW;
   const Y_SIZE = 36, Y_RULER = 100, Y_SPAC = 164;
   const R = 4;
   const GRID_DOT_R = 2.5;
-  // Label interval: target ~6 labels regardless of ruler density
   const labelInterval = Math.max(1, Math.pow(2, Math.ceil(Math.log2(RULER_STEPS / 6))));
  
-  // ── draw connector lines ──
-  // Size connectors
   for (let n = 0; n <= sliderMax; n++) {
     const v = sScale.vals[n];
     const gi = gridStepFor(v);
@@ -925,7 +1243,6 @@ function drawStrideMap() {
     ctx.lineWidth = hi ? 1.5 : 0.75;
     ctx.beginPath(); ctx.moveTo(x, Y_SIZE + R); ctx.lineTo(x, Y_RULER - GRID_DOT_R); ctx.stroke();
   }
-  // Spacing connectors
   for (let n = 0; n <= sliderMax; n++) {
     const v = pScale.vals[n];
     const gi = gridStepFor(v);
@@ -937,12 +1254,10 @@ function drawStrideMap() {
     ctx.beginPath(); ctx.moveTo(x, Y_RULER + GRID_DOT_R); ctx.lineTo(x, Y_SPAC - R); ctx.stroke();
   }
  
-  // ── draw Grid ruler ──
   ctx.strokeStyle = 'rgba(100,100,100,0.18)';
   ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(LW, Y_RULER); ctx.lineTo(CW - 8, Y_RULER); ctx.stroke();
  
-  // Grid dots + value labels at multiples of 8 steps
   for (let n = 0; n <= RULER_STEPS; n++) {
     const x = gx(n);
     const isSizeMatch = gridStepFor(sScale.vals[strideN]) === n;
@@ -952,7 +1267,6 @@ function drawStrideMap() {
     ctx.arc(x, Y_RULER, isHL ? GRID_DOT_R + 1 : GRID_DOT_R, 0, Math.PI * 2);
     ctx.fillStyle = isHL ? '#CE0037' : '#cccccc';
     ctx.fill();
-    // Label every 8 steps and the highlighted ones
     if (n % labelInterval === 0) {
       ctx.fillStyle = '#999999';
       ctx.font = '8px "SF Mono","Fira Code",monospace';
@@ -961,28 +1275,23 @@ function drawStrideMap() {
     }
   }
  
-  // ── draw Size dots ──
   for (let n = 0; n <= sliderMax; n++) {
     const v = sScale.vals[n];
     const gi = gridStepFor(v);
     const onGrid = gi !== null && gi <= RULER_STEPS;
     const x = onGrid ? gx(gi) : null;
     const hi = n === strideN;
- 
     if (x !== null) {
       ctx.beginPath(); ctx.arc(x, Y_SIZE, hi ? R + 1.5 : R, 0, Math.PI * 2);
       ctx.fillStyle = hi ? '#005EB8' : 'rgba(0,94,184,0.5)';
       ctx.fill();
       if (hi) { ctx.strokeStyle = '#005EB8'; ctx.lineWidth = 1.5; ctx.stroke(); }
     } else if (hi) {
-      // Value is off-grid — draw at overflow position with grey
       const overflowX = CW - 16;
       ctx.beginPath(); ctx.arc(overflowX, Y_SIZE, R + 1.5, 0, Math.PI * 2);
       ctx.fillStyle = '#cccccc';
       ctx.fill();
     }
- 
-    // Value label on highlighted dot
     if (hi && x !== null) {
       ctx.fillStyle = '#005EB8';
       ctx.font = '500 9px "SF Mono","Fira Code",monospace';
@@ -991,14 +1300,12 @@ function drawStrideMap() {
     }
   }
  
-  // ── draw Spacing dots ──
   for (let n = 0; n <= sliderMax; n++) {
     const v = pScale.vals[n];
     const gi = gridStepFor(v);
     const onGrid = gi !== null && gi <= RULER_STEPS;
     const x = onGrid ? gx(gi) : null;
     const hi = n === strideN;
- 
     if (x !== null) {
       ctx.beginPath(); ctx.arc(x, Y_SPAC, hi ? R + 1.5 : R, 0, Math.PI * 2);
       ctx.fillStyle = hi ? '#00783A' : 'rgba(0,120,58,0.5)';
@@ -1010,7 +1317,6 @@ function drawStrideMap() {
       ctx.fillStyle = '#cccccc';
       ctx.fill();
     }
- 
     if (hi && x !== null) {
       ctx.fillStyle = '#00783A';
       ctx.font = '500 9px "SF Mono","Fira Code",monospace';
@@ -1019,21 +1325,18 @@ function drawStrideMap() {
     }
   }
  
-  // ── row labels ──
   ctx.textAlign = 'left';
   ctx.font = '500 10px "SF Mono","Fira Code",monospace';
   ctx.fillStyle = '#003F7A'; ctx.fillText('Size',    2, Y_SIZE + 4);
   ctx.fillStyle = '#CE0037'; ctx.fillText('Grid',    2, Y_RULER + 4);
   ctx.fillStyle = '#005C2C'; ctx.fillText('Spacing', 2, Y_SPAC + 4);
  
-  // ── equation row ──
   const sVal  = sScale.vals[strideN];
   const pVal  = pScale.vals[strideN];
   const sGI   = gridStepFor(sVal);
   const pGI   = gridStepFor(pVal);
   const sGrid = sGI !== null ? gFull.vals[sGI] : null;
   const pGrid = pGI !== null ? gFull.vals[pGI] : null;
- 
   const prevPGI = strideN > 0 ? gridStepFor(pScale.vals[strideN - 1]) : 0;
   const stride  = (pGI !== null && prevPGI !== null && strideN > 0) ? pGI - prevPGI : '—';
  
@@ -1052,36 +1355,56 @@ function drawStrideMap() {
         : ' <span class="note">(not on Grid ruler)</span>'}
     </div>`;
  
-  // ── update ratio badges ──
   const gv2 = getVars('grid'), sv2 = getVars('size'), pv2 = getVars('spac');
-  document.getElementById('ratio-grid').textContent = `Grid c=${gv2.c}`;
-  document.getElementById('ratio-size').textContent = `Size c=${sv2.c}`;
-  document.getElementById('ratio-spac').textContent = `Spacing c=${pv2.c}`;
-  // compute ratio as simplified fractions relative to Spacing
-  const gc = gv2.c, sc = sv2.c, pc = pv2.c;
-  const gcd = (a, b) => b ? gcd(b, a % b) : a;
-  const g3 = gcd(gcd(gc, sc), pc);
-  document.getElementById('ratio-val').textContent = `ratio ${gc/g3} : ${sc/g3} : ${pc/g3}`;
+  if (currentFormulaModel === 'projection') {
+    const sp = getProjectionVars('size');
+    const pp = getProjectionVars('spac');
+    document.getElementById('ratio-grid').textContent = `Grid c=${gv2.c}`;
+    document.getElementById('ratio-size').textContent = `Size cᵢ=${sp.c}`;
+    document.getElementById('ratio-spac').textContent = `Spacing cᵢ=${pp.c}`;
+    document.getElementById('ratio-val').textContent = `preset + projection stride`;
+  } else {
+    document.getElementById('ratio-grid').textContent = `Grid c=${gv2.c}`;
+    document.getElementById('ratio-size').textContent = `Size c=${sv2.c}`;
+    document.getElementById('ratio-spac').textContent = `Spacing c=${pv2.c}`;
+    const gc = gv2.c, sc = sv2.c, pc = pv2.c;
+    const gcd = (a, b) => b ? gcd(b, a % b) : a;
+    const g3 = gcd(gcd(gc, sc), pc);
+    const ratioEl = document.getElementById('ratio-val');
+    if (gv2.b !== sv2.b || sv2.b !== pv2.b) {
+      ratioEl.textContent = 'ratio —';
+      ratioEl.title = 'Ratio is undefined when growth factors (b) differ between scales.';
+      ratioEl.style.opacity = '0.5';
+    } else {
+      ratioEl.title = '';
+      ratioEl.style.opacity = '';
+      ratioEl.textContent = `ratio ${gc/g3} : ${sc/g3} : ${pc/g3}`;
+    }
+  }
 }
  
-/* ─────────────────────────────────────────────
-   REFRESH ORCHESTRATOR (original + stride hook)
-───────────────────────────────────────────── */
+/* ── REFRESH ORCHESTRATOR ── */
 function refreshAll() {
   const steps = getSteps();
-  const chartSteps = getChartSteps();
-  const gv = getVars('grid'), sv = getVars('size'), pv = getVars('spac');
-  const g = computeScale(gv.S, gv.a, gv.b, gv.c, steps);
-  const s = computeScale(sv.S, sv.a, sv.b, sv.c, steps);
-  const p = computeScale(pv.S, pv.a, pv.b, pv.c, steps);
-  renderTable('tbody-grid', 'grid', g, DEFAULTS.grid, gv, steps);
-  renderTable('tbody-size', 'size', s, DEFAULTS.size, sv, steps);
-  renderTable('tbody-spac', 'spac', p, DEFAULTS.spac, pv, steps);
+  const { gv, sv, pv, gFull, gShort, sScale, pScale } = computeActiveScales(steps);
+ 
+  let sizeDefaultScale = null;
+  let spacDefaultScale = null;
+  if (currentFormulaModel === 'projection') {
+    const gDefFull = computeScale(DEFAULTS.grid.S, DEFAULTS.grid.a, DEFAULTS.grid.b, DEFAULTS.grid.c, computeProjectionHeadroom(steps, PROJECTION_DEFAULTS.size, PROJECTION_DEFAULTS.spac), 0);
+    sizeDefaultScale = buildProjectedScale('size', steps, gDefFull, PROJECTION_DEFAULTS.size);
+    spacDefaultScale = buildProjectedScale('spac', steps, gDefFull, PROJECTION_DEFAULTS.spac);
+  }
+ 
+  renderTable('tbody-grid', 'grid', gShort, DEFAULTS.grid, gv, steps, null);
+  const gridValSet = new Set(gFull.vals.map(v => Math.round(v * 1000)));
+  renderTable('tbody-size', 'size', sScale, DEFAULTS.size, sv, steps, gridValSet, sizeDefaultScale);
+  renderTable('tbody-spac', 'spac', pScale, DEFAULTS.spac, pv, steps, gridValSet, spacDefaultScale);
   updateMeta('grid', gv); updateMeta('size', sv); updateMeta('spac', pv);
-  const gc = computeScale(gv.S, gv.a, gv.b, gv.c, chartSteps);
-  const sc = computeScale(sv.S, sv.a, sv.b, sv.c, chartSteps);
-  const pc = computeScale(pv.S, pv.a, pv.b, pv.c, chartSteps);
-  buildChart(gc, sc, pc, chartSteps);
+ 
+  const chartSteps = getChartSteps();
+  const chartData = computeActiveScales(chartSteps);
+  buildChart(chartData.gShort, chartData.sScale, chartData.pScale, chartSteps);
   drawStrideMap();
 }
  
@@ -1172,13 +1495,11 @@ function copyColumn(scaleId, colIndex, header, btn) {
     const cells = Array.from(row.querySelectorAll('td'));
     if (cells[colIndex]) cellValues.push(cells[colIndex].textContent.trim());
   });
- 
   const orig = btn.innerHTML;
   function showFeedback(success) {
     if (success) { btn.classList.add('copied'); }
     setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
   }
- 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const thRow = document.createElement('tr');
@@ -1196,23 +1517,14 @@ function copyColumn(scaleId, colIndex, header, btn) {
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
- 
   table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
   document.body.appendChild(table);
- 
   const range = document.createRange();
   range.selectNode(table);
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
- 
-  try {
-    document.execCommand('copy');
-    showFeedback(true);
-  } catch(e) {
-    showFeedback(false);
-  }
- 
+  try { document.execCommand('copy'); showFeedback(true); } catch(e) { showFeedback(false); }
   sel.removeAllRanges();
   document.body.removeChild(table);
 }
@@ -1222,29 +1534,18 @@ function copyTable(scaleId, thValId, thIncId, btn) {
   const incHeader = document.getElementById(thIncId).textContent.trim();
   const rows = document.querySelectorAll('#tbody-' + scaleId + ' tr');
   const orig = btn.textContent;
- 
   const dataRows = [];
   rows.forEach(row => {
     const cells = Array.from(row.querySelectorAll('td'));
     if (cells.length < 3) return;
-    dataRows.push([
-      cells[0].textContent.trim(),
-      cells[1].textContent.trim(),
-      cells[2].textContent.trim()
-    ]);
+    dataRows.push([cells[0].textContent.trim(), cells[1].textContent.trim(), cells[2].textContent.trim()]);
   });
- 
   function showFeedback(success) {
     btn.textContent = success ? 'Copied!' : 'Not supported';
     btn.style.color = success ? '#00783A' : '#636363';
     btn.style.borderColor = success ? '#00783A' : '#666666';
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.style.color = '#636363';
-      btn.style.borderColor = '#666666';
-    }, 2000);
+    setTimeout(() => { btn.textContent = orig; btn.style.color = '#636363'; btn.style.borderColor = '#666666'; }, 2000);
   }
- 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const thRow = document.createElement('tr');
@@ -1258,30 +1559,18 @@ function copyTable(scaleId, thValId, thIncId, btn) {
   const tbody = document.createElement('tbody');
   dataRows.forEach(r => {
     const tr = document.createElement('tr');
-    r.forEach(v => {
-      const td = document.createElement('td');
-      td.textContent = v;
-      tr.appendChild(td);
-    });
+    r.forEach(v => { const td = document.createElement('td'); td.textContent = v; tr.appendChild(td); });
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
   table.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
   document.body.appendChild(table);
- 
   const range = document.createRange();
   range.selectNode(table);
   const sel = window.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
- 
-  try {
-    document.execCommand('copy');
-    showFeedback(true);
-  } catch(e) {
-    showFeedback(false);
-  }
- 
+  try { document.execCommand('copy'); showFeedback(true); } catch(e) { showFeedback(false); }
   sel.removeAllRanges();
   document.body.removeChild(table);
 }
@@ -1293,7 +1582,16 @@ function resetDefaults() {
     document.getElementById(id+'-a').value = def.a;
     document.getElementById(id+'-b').value = def.b;
     document.getElementById(id+'-c').value = def.c;
+    document.getElementById(id+'-h').value = def.h;
   }
+  document.getElementById('size-proj-preset').value = PROJECTION_DEFAULTS.size.preset;
+  document.getElementById('size-proj-step').value = PROJECTION_DEFAULTS.size.step;
+  document.getElementById('size-proj-c').value = PROJECTION_DEFAULTS.size.c;
+  document.getElementById('size-proj-h').value = PROJECTION_DEFAULTS.size.h;
+  document.getElementById('spac-proj-preset').value = PROJECTION_DEFAULTS.spac.preset;
+  document.getElementById('spac-proj-step').value = PROJECTION_DEFAULTS.spac.step;
+  document.getElementById('spac-proj-c').value = PROJECTION_DEFAULTS.spac.c;
+  document.getElementById('spac-proj-h').value = PROJECTION_DEFAULTS.spac.h;
   document.getElementById('steps-input').value = 48;
   document.getElementById('chart-steps-input').value = 48;
   document.getElementById('stride-steps-input').value = 48;
@@ -1305,6 +1603,7 @@ function resetDefaults() {
   document.querySelectorAll('.unit-toggle button').forEach(b => {
     b.classList.toggle('active', b.textContent.trim() === 'px');
   });
+  setFormulaModel('exact');
   strideN = 4;
   document.getElementById('stride-slider').value = 4;
   document.getElementById('stride-n-badge').textContent = 4;
@@ -1312,13 +1611,13 @@ function resetDefaults() {
   document.querySelectorAll('#stride-unit-toggle button').forEach(b => {
     b.classList.toggle('active', b.textContent.trim() === 'px');
   });
+  updateModelAnnotations();
   refreshAll();
 }
  
-// Redraw stride map on window resize
 window.addEventListener('resize', () => { drawStrideMap(); });
  
-refreshAll();
+setFormulaModel('exact');
 </script>
  
 <hr style="border: none; border-top: 0.5px solid #cccccc; margin-top: 64px;">
